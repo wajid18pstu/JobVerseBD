@@ -72,7 +72,7 @@
 
     ?>
     <!-- Main Container -->
-    <div class="container-fluid" style="background-color:#a0c4ff; padding-right: 50px; padding-left: 50px;">
+    <div class="container-fluid" style="background-color: #d6d6d6ff; padding-right: 50px; padding-left: 50px;">
         <?php
         include 'connect.php';
 
@@ -97,7 +97,7 @@
             <div style="width: 100%; padding-left: 50px; padding-right: 50px; " class="row">
                 <div class="col">
                     <div class="col-md-6" style="padding-top:50px;">
-                        <img src="img/2.jpg" class="img-circle pc" width="200" style="margin: 20%; box-shadow: 0px 0px 20px #1e1e1e;">
+                        <img src="img/2.png" class="img-circle pc" width="200" style="margin: 20%; box-shadow: 0px 0px 20px #1e1e1e;">
                     </div>
                     <div style="padding-left: 500px; padding-top: 90px;">
 

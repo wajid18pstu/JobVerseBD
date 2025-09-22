@@ -58,7 +58,7 @@ include 'navBar.php';
 
 ?>
 <!-- Main Container -->
-<div class="container-fluid" style="background-color: #a0c4ff; padding-left: 50px; padding-right: 50px;">
+<div class="container-fluid" style="background-color: rgba(202, 202, 202, 1); padding-left: 50px; padding-right: 50px;">
 <?php
 include 'connect.php';
 
