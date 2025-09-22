@@ -76,21 +76,19 @@
 
     ?>
     <!-- Main Container -->
-    <div class="container-fluid" style="background-color: #FFDAB9;">
+    <div class="container-fluid" style="background-color: #d6d6d6ff;">
 
         <?php
         include 'connect.php';
 
         $sql = "select * from seeker where id = '$sid' ;";
-
-
-
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             // output data of each row
             if ($row = $result->fetch_assoc()) {
                 $name =  $row["name"];
                 $email =  $row["email"];
+                $profile_image = $row["profile_image"];
             }
         }
         ?>
@@ -103,7 +101,7 @@
 
                 <div class="col">
                     <div class="col-md-6" style="padding-top:50px;">
-                        <img src="img/1.jpg" class="img-circle pc" width="200" style="margin: 20%; box-shadow: 0px 0px 20px #1e1e1e;">
+                        <img src="img/<?php echo htmlspecialchars($profile_image ? $profile_image : '1.jpg'); ?>" class="img-circle pc" width="200" height="200" style="margin: 20%; box-shadow: 0px 0px 20px #1e1e1e; object-fit: cover;">
                     </div>
 
                     <div style="padding-left: 500px; padding-top: 150px;">

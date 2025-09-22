@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 
     ?>
     <!-- Main Container -->
-    <div class="container-fluid" style="background-color: #e9c46a;">
+    <div class="container-fluid" style="background-color: #ffffffff;">
         <!--background-image: url('img/4.png');-->
         <?php
         include 'connect.php';
@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 
             <h3 class="pc" style="padding-top: 120px; font-size: 90px; text-align: center;"><b>POST A JOB</b></h3>
 
-            <div class="container contact-form" style=" background-color: #2a9d8f; width: 700px; height: 1100px; box-shadow: 0px 0px 25px #1e1e1e; 
+            <div class="container contact-form" style=" background-color: #ccccccff; width: 700px; height: 1100px; box-shadow: 0px 0px 25px #1e1e1e; 
                  align-items: center; justify-content: center; display: flex; padding: 0px; ">
                 <form method="post">
 
@@ -231,11 +231,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 
                             <div class="form-group bbb">
 
-                                <button type="submit" name="submitPost" class="btn" style="background-color: #001219; color: #e9d8a6;
+                                <button type="submit" name="submitPost" class="btn" style="background-color: #001219; color: #ffffffff;
                             box-shadow: none; border-radius: 0px; height: 50px; width: 500px;"> <b> POST A JOB </b> </button>
 
                                 <!--display message-->
-                                <div style="font-family: Sora; font-size: 15px; color: #ffd6a5; padding-top: 15px;">
+                                <div style="font-family: Sora; font-size: 15px; color: #000000ff; padding-top: 15px;">
                                     <b><?php echo $msg; ?></b>
                                 </div>
 

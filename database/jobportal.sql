@@ -221,6 +221,7 @@ CREATE TABLE IF NOT EXISTS `seeker` (
   `dob` date NOT NULL,
   `skills` varchar(2000) NOT NULL,
   `resume` varchar(500) NOT NULL,
+  `profile_image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
 
