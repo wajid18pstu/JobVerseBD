@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 
             <h3 class="pc" style="padding-top: 120px; font-size: 90px; text-align: center;"><b>POST A JOB</b></h3>
 
-            <div class="container contact-form" style=" background-color: #ccccccff; width: 700px; height: 1100px; box-shadow: 0px 0px 25px #1e1e1e; 
+            <div class="container contact-form" style=" background-color: #cececeff; width: 700px;border-radius: 20px; height: 1100px; box-shadow: 0px 0px 25px #000000ff; 
                  align-items: center; justify-content: center; display: flex; padding: 0px; ">
                 <form method="post">
 

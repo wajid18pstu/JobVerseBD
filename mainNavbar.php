@@ -25,7 +25,7 @@
             $myusername = $_SESSION['login_user'];
             echo '<a href="jobs.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">VIEW JOBS<i class="fa fa-arrow-right ms-3"></i></a>';
         } else {
-            echo '<a href="jobs.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">GO TO PORTAL<i class="fa fa-arrow-right ms-3"></i></a>';
+            echo '<a href="jobs.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">GO TO JobVerse<i class="fa fa-arrow-right ms-3"></i></a>';
         }
         ?>
     </div>

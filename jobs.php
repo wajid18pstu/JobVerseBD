@@ -123,7 +123,7 @@
   ?>
 
   <!-- Main Container -->
-  <div class="container-fluid" style=" background-color: #dbdbdbff; background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+  <div class="container-fluid" style=" background-color: #ecececff; background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
 
     <div class="hero" style=" color:black; height: 1700px;">
       <br>

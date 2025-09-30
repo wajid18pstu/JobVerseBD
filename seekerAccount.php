@@ -68,7 +68,7 @@
     include 'signinEmployerModals.php';
     ?>
     <!-- Main Container -->
-    <div class="container-fluid" style="background-color: #ffffffff;">
+    <div class="container" style="background-color: #fff; padding-top: 100px;  padding-bottom: 50px;">
         <?php
         include 'connect.php';
         if (!isset($conn) || !$conn || !($conn instanceof mysqli)) {
@@ -126,6 +126,69 @@
 
         $sqlE = "select * from seeker where id = '$sid' ;";
         $resultE = $conn->query($sqlE);
+        // Handle professional profile updates
+        if (isset($_POST['update_profile'])) {
+            $linkedin_profile = $conn->real_escape_string($_POST['linkedin_profile']);
+            $update_fields = ["linkedin_profile='$linkedin_profile'"];
+            
+            // Handle CV upload
+            if (isset($_FILES['cv_file']) && $_FILES['cv_file']['size'] > 0) {
+                $cv_dir = "uploads/cv/";
+                if (!file_exists($cv_dir)) {
+                    mkdir($cv_dir, 0777, true);
+                }
+                
+                $cv_file = $_FILES['cv_file'];
+                $cv_name = "cv_" . $sid . "_" . time() . ".pdf";
+                $cv_path = $cv_dir . $cv_name;
+                
+                if ($cv_file['type'] === 'application/pdf' && $cv_file['size'] <= 5 * 1024 * 1024) {
+                    if (move_uploaded_file($cv_file['tmp_name'], $cv_path)) {
+                        $update_fields[] = "cv_file='$cv_name'";
+                    }
+                }
+            }
+            
+            // Handle certificates upload
+            if (isset($_FILES['certificates'])) {
+                $cert_dir = "uploads/certificates/";
+                if (!file_exists($cert_dir)) {
+                    mkdir($cert_dir, 0777, true);
+                }
+                
+                $uploaded_certs = [];
+                foreach ($_FILES['certificates']['tmp_name'] as $key => $tmp_name) {
+                    if ($_FILES['certificates']['size'][$key] > 0) {
+                        $cert_name = "cert_" . $sid . "_" . time() . "_" . $key . ".pdf";
+                        $cert_path = $cert_dir . $cert_name;
+                        
+                        if ($_FILES['certificates']['type'][$key] === 'application/pdf' && 
+                            $_FILES['certificates']['size'][$key] <= 2 * 1024 * 1024) {
+                            if (move_uploaded_file($tmp_name, $cert_path)) {
+                                $uploaded_certs[] = $cert_name;
+                            }
+                        }
+                    }
+                }
+                
+                if (!empty($uploaded_certs)) {
+                    $certs_json = $conn->real_escape_string(json_encode($uploaded_certs));
+                    $update_fields[] = "certificates='$certs_json'";
+                }
+            }
+            
+            if (!empty($update_fields)) {
+                $sql_update = "UPDATE seeker SET " . implode(", ", $update_fields) . " WHERE id='$sid'";
+                if ($conn->query($sql_update) === TRUE) {
+                    echo "<div class='alert alert-success'>Profile updated successfully!</div>";
+                    echo "<script>window.location.href = 'seekerAccount.php';</script>";
+                    exit();
+                } else {
+                    echo "<div class='alert alert-danger'>Error updating profile: " . $conn->error . "</div>";
+                }
+            }
+        }
+
         if ($resultE->num_rows > 0) {
             // output data of each row
             if ($rowE = $resultE->fetch_assoc()) {
@@ -139,34 +202,120 @@
         ?>
 
 
-        <div class="hero">
-            <div style="width: 100%; padding-left: 50px; padding-right: 50px;" class="row">
-                <div class="col">
-                    <div class="row" style="padding-top:100px; display: flex; align-items: center; min-height:320px;">
-                        <div class="col-md-5" style="text-align:center;">
-                            <div class="panel panel-default" style="padding: 40px 20px;  background: #fff; border-radius: 16px; min-height: 300px;">
-                                <img src="img/<?php echo htmlspecialchars($rowE["profile_image"] ? $rowE["profile_image"] : '1.jpg'); ?>" class="img-circle pc" width="120" height="120" style="object-fit:cover; margin-bottom: 20px;">
+        <div class="row">
+                        <!-- Left Column - Profile Image -->
+                        <div class="col-md-4">
+                            <div class="panel panel-default" style="padding-top:10px;padding-bottom:300px;  background: #fff; border-radius: 16px; text-align: center;">
+                                <img src="img/<?php echo htmlspecialchars($rowE["profile_image"] ? $rowE["profile_image"] : '1.jpg'); ?>" class="img-circle" width="150" height="150" style="object-fit:cover; margin-bottom: 20px;">
                                 <form method="post" enctype="multipart/form-data">
                                     <label for="profile_image">Change Profile Image</label>
-                                    <input type="file" name="profile_image" id="profile_image" accept="image/*" required class="form-control" style="margin-bottom:15px;">
-                                    <button type="submit" name="upload_image" class="btn btn-primary btn-md">Upload</button>
+                                    <input type="file" name="profile_image" id="profile_image" class="form-control" accept="image/*">
+                                    <input type="submit" name="upload_image" value="Upload Image" class="btn btn-primary" style="margin-top: 10px;">
                                 </form>
                             </div>
                         </div>
-                        <div class="col-md-7" style="padding-left:90px;">
-                            <div class="panel panel-default" style="padding: 10px 40px; background: #fff; border-radius: 16px; min-height: 300px; display: flex; flex-direction: column; justify-content: center;">
-                                <h3 style="margin-bottom: 10px;">User Name</h3>
-                    <h4><?php echo $name; ?></h4>
-                    <br><br>
-                    <h2>Email</h2>
-                    <h4><?php echo $email; ?></h4>
-                    <br><br>
-                    <h2>Qualification</h2>
-                    <h4><?php echo $qlf; ?></h4>
-                    <br><br>
-                    <h2>Skills</h2>
-                    <h4><?php echo $skills; ?></h4>
-                    <br><br>
+
+                        <!-- Right Column - User Info -->
+                        <div class="col-md-8">
+                            <div class="panel panel-default" style="padding-top:10px; padding-bottom:300px; background: #fff; border-radius: 16px;">
+                                <h3 style="color: #333; margin-bottom: 25px;">User Information</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label style="font-size: 16px; color: #666;">Name</label>
+                                            <h4 style="color: #333; margin-top: 5px;"><?php echo htmlspecialchars($name); ?></h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label style="font-size: 16px; color: #666;">Email</label>
+                                            <h4 style="color: #333; margin-top: 5px;"><?php echo htmlspecialchars($email); ?></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 20px;">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label style="font-size: 16px; color: #666;">Qualification</label>
+                                            <h4 style="color: #333; margin-top: 5px;"><?php echo htmlspecialchars($qlf); ?></h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label style="font-size: 16px; color: #666;">Skills</label>
+                                            <h4 style="color: #333; margin-top: 5px;"><?php echo htmlspecialchars($skills); ?></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Professional Profile Section -->
+                    <div class="row" style="margin-top: 30px;">
+                        <div class="col-md-12">
+                            <div class="panel panel-default" style="padding-top:20px;padding-bottom:650px;  background: #fff; border-radius: 16px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                <h3 style="color: #333; margin-bottom: 30px;">Professional Profile</h3>
+                                <form method="post" enctype="multipart/form-data">
+                                    
+                                    <div class="form-group" style="margin-bottom: 30px;">
+                                        <label for="linkedin_profile" style="font-size: 16px; margin-bottom: 10px; color: #555;">LinkedIn Profile URL</label>
+                                        <input type="url" name="linkedin_profile" id="linkedin_profile" class="form-control input-lg" 
+                                            value="<?php echo htmlspecialchars($rowE['linkedin_profile'] ?? ''); ?>" 
+                                            placeholder="https://www.linkedin.com/in/yourprofile"
+                                            style="height: 50px; font-size: 16px;">
+                                    </div>
+                                    
+                                    <div class="form-group" style="margin-bottom: 30px;">
+                                        <label for="cv_file" style="font-size: 16px; margin-bottom: 10px; color: #555;">Upload CV (PDF)</label>
+                                        <input type="file" name="cv_file" id="cv_file" class="form-control input-lg" accept=".pdf" style="height: 50px; padding: 10px;">
+                                        <?php if(!empty($rowE['cv_file'])): ?>
+                                            <div class="alert alert-info" style="margin-top: 10px;">
+                                                <i class="glyphicon glyphicon-file"></i>
+                                                Current CV: <?php echo htmlspecialchars($rowE['cv_file']); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    
+                                    <div class="form-group" style="margin-bottom: 30px;">
+                                        <label for="certificates" style="font-size: 16px; margin-bottom: 10px; color: #555;">Upload Certificates (PDF)</label>
+                                        <input type="file" name="certificates[]" id="certificates" class="form-control input-lg" accept=".pdf" multiple style="height: 50px; padding: 10px;">
+                                        <?php if(!empty($rowE['certificates'])): ?>
+                                            <div class="alert alert-info" style="margin-top: 10px;">
+                                                <i class="glyphicon glyphicon-certificate"></i>
+                                                <strong>Current Certificates:</strong>
+                                                <ul style="margin-top: 10px; margin-bottom: 0;">
+                                                    <?php foreach(json_decode($rowE['certificates']) as $cert): ?>
+                                                        <li><?php echo htmlspecialchars($cert); ?></li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    
+                                    <input type="submit" name="update_profile" value="Update Professional Profile" 
+                                        class="btn btn-primary btn-lg" 
+                                        style="width: 100%; margin-top: 20px; padding: 15px; font-size: 16px;">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/tilt.jquery.min.js"></script>
+    <script src="js/signinModal.js"></script>
+</body>
+</html>
+                                </form>
+                            </div>
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
