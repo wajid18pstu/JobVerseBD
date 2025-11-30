@@ -10,6 +10,14 @@ require_once __DIR__ . '/lang.php';
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200&display=swap" rel="stylesheet">
 
+<style>
+  /* Language link styles: base color and hover colors for EN and Bangla */
+  .navbar .lang-en { color: #fff; padding: 16px; text-decoration: none; }
+  .navbar .lang-en:hover { color: #ffd54f; }
+  .navbar .lang-bn { color: #fff; padding: 6px; text-decoration: none; }
+  .navbar .lang-bn:hover { color: #80deea; }
+</style>
+
 <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" style="box-shadow: 0px 3px 4px rgba(225, 225, 225, .6); font-family: 'Sora', sans-serif;">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -76,9 +84,9 @@ require_once __DIR__ . '/lang.php';
           echo '<li><a id="loginAnchor" href="#" data-toggle="modal" data-target="#myEmployerModal">'.t('sign_in').'</a></li>';
         }  ?>
         <li style="display:flex; align-items:center; padding-left:8px;">
-          <a href="setLanguage.php?lang=en" style="color:#fff; padding:16px;">EN</a>
+          <a href="setLanguage.php?lang=en" class="lang-en">EN</a>
           <span style="color:#fff; padding:0 6px;">|</span>
-          <a href="setLanguage.php?lang=bn" style="color:#fff; padding:6px;">বাংলা</a>
+          <a href="setLanguage.php?lang=bn" class="lang-bn">বাংলা</a>
         </li>
       </ul>
 

@@ -5,6 +5,11 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 require_once __DIR__ . '/lang.php';
 ?>
+<style>
+    /* Language switch hover color */
+    .lang-switch { color: inherit; text-decoration: none; }
+    .lang-switch:hover { color: #55ad7aff !important; }
+</style>
 <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
     <a href="index.php" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
         <img src="img/jobsConnect.svg" style="width:180px;" alt="">
@@ -21,9 +26,9 @@ require_once __DIR__ . '/lang.php';
             <a href="contact.php" class="nav-item nav-link"><?php echo t('contact'); ?></a>
         </div>
         <div class="d-flex align-items-center ms-3 me-2">
-            <a class="nav-link p-1" href="setLanguage.php?lang=en">EN</a>
+            <a class="nav-link p-1 lang-switch" href="setLanguage.php?lang=en">EN</a>
             <span class="mx-1">|</span>
-            <a class="nav-link p-1" href="setLanguage.php?lang=bn">বাংলা</a>
+            <a class="nav-link p-1 lang-switch" href="setLanguage.php?lang=bn">বাংলা</a>
         </div>
         <?php
         if (session_status() == PHP_SESSION_NONE) {
