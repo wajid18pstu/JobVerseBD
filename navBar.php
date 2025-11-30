@@ -76,7 +76,7 @@ require_once __DIR__ . '/lang.php';
           echo '<li><a id="loginAnchor" href="#" data-toggle="modal" data-target="#myEmployerModal">'.t('sign_in').'</a></li>';
         }  ?>
         <li style="display:flex; align-items:center; padding-left:8px;">
-          <a href="setLanguage.php?lang=en" style="color:#fff; padding:6px;">EN</a>
+          <a href="setLanguage.php?lang=en" style="color:#fff; padding:16px;">EN</a>
           <span style="color:#fff; padding:0 6px;">|</span>
           <a href="setLanguage.php?lang=bn" style="color:#fff; padding:6px;">বাংলা</a>
         </li>
