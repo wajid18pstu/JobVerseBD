@@ -45,30 +45,30 @@
         <div class="container-fluid p-0">
             <div class="owl-carousel header-carousel position-relative">
                 <div class="owl-carousel-item position-relative">
-                    <img class="img-fluid" src="img/carousel_1.jpg" alt="">
+                    <img class="img-fluid" src="img/carousel_1.png" alt="">
                     <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(43, 57, 64, .5);">
                         <div class="container">
                             <div class="row justify-content-start">
                                 <div class="col-10 col-lg-8">
-                                    <h1 class="display-3 text-white animated slideInDown mb-4">Find The Perfect Job That You Deserved</h1>
-                                    <p class="fs-5 fw-medium text-white mb-4 pb-2">Get notified as soon as new jobs are posted.</p>
-                                    <a href="jobs.php" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search A Job</a>
-                                    <a href="jobs.php" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Find A Talent</a>
+                                    <h1 class="display-3 text-white animated slideInDown mb-4"><?php echo t('find_perfect_job'); ?></h1>
+                                    <p class="fs-5 fw-medium text-white mb-4 pb-2"><?php echo t('get_notified'); ?></p>
+                                    <a href="jobs.php" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"><?php echo t('search_a_job'); ?></a>
+                                    <a href="jobs.php" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight"><?php echo t('find_a_talent'); ?></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="owl-carousel-item position-relative">
-                    <img class="img-fluid" src="img/carousel_2.jpg" alt="">
+                    <img class="img-fluid" src="img/carousel_2.png" alt="">
                     <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(43, 57, 64, .5);">
                         <div class="container">
                             <div class="row justify-content-start">
                                 <div class="col-10 col-lg-8">
-                                    <h1 class="display-3 text-white animated slideInDown mb-4">Find The Best Startup Job That Fits You</h1>
-                                    <p class="fs-5 fw-medium text-white mb-4 pb-2">Looking to hire? Post your job openings to reach thousands of qualified candidates.</p>
-                                    <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search A Job</a>
-                                    <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Find A Talent</a>
+                                    <h1 class="display-3 text-white animated slideInDown mb-4"><?php echo t('find_best_startup'); ?></h1>
+                                    <p class="fs-5 fw-medium text-white mb-4 pb-2"><?php echo t('looking_to_hire'); ?></p>
+                                    <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"><?php echo t('search_a_job'); ?></a>
+                                    <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight"><?php echo t('find_a_talent'); ?></a>
                                 </div>
                             </div>
                         </div>
@@ -82,62 +82,62 @@
         <!-- Category Start -->
         <section id="category" class="container-xxl py-5">
             <div class="container">
-                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Explore By Category</h1>
+                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s"><?php echo t('explore_by_category'); ?></h1>
                 <div class="row g-4">
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
                         <a class="cat-item rounded p-4" href="">
                             <i class="fa fa-3x fa-mail-bulk text-primary mb-4"></i>
-                            <h6 class="mb-3">Marketing</h6>
-                            <p class="mb-0">123 Vacancy</p>
+                            <h6 class="mb-3"><?php echo t('marketing'); ?></h6>
+                            <p class="mb-0">123 <?php echo t('vacancy'); ?></p>
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
                         <a class="cat-item rounded p-4" href="">
                             <i class="fa fa-3x fa-headset text-primary mb-4"></i>
-                            <h6 class="mb-3">Customer Service</h6>
-                            <p class="mb-0">123 Vacancy</p>
+                            <h6 class="mb-3"><?php echo t('customer_service'); ?></h6>
+                            <p class="mb-0">123 <?php echo t('vacancy'); ?></p>
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                         <a class="cat-item rounded p-4" href="">
                             <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
-                            <h6 class="mb-3">Human Resource</h6>
-                            <p class="mb-0">123 Vacancy</p>
+                            <h6 class="mb-3"><?php echo t('human_resource'); ?></h6>
+                            <p class="mb-0">123 <?php echo t('vacancy'); ?></p>
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
                         <a class="cat-item rounded p-4" href="">
                             <i class="fa fa-3x fa-tasks text-primary mb-4"></i>
-                            <h6 class="mb-3">Project Management</h6>
-                            <p class="mb-0">123 Vacancy</p>
+                            <h6 class="mb-3"><?php echo t('project_management'); ?></h6>
+                            <p class="mb-0">123 <?php echo t('vacancy'); ?></p>
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
                         <a class="cat-item rounded p-4" href="">
                             <i class="fa fa-3x fa-chart-line text-primary mb-4"></i>
-                            <h6 class="mb-3">Business Development</h6>
-                            <p class="mb-0">123 Vacancy</p>
+                            <h6 class="mb-3"><?php echo t('business_development'); ?></h6>
+                            <p class="mb-0">123 <?php echo t('vacancy'); ?></p>
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
                         <a class="cat-item rounded p-4" href="">
                             <i class="fa fa-3x fa-hands-helping text-primary mb-4"></i>
-                            <h6 class="mb-3">Sales & Communication</h6>
-                            <p class="mb-0">123 Vacancy</p>
+                            <h6 class="mb-3"><?php echo t('sales_communication'); ?></h6>
+                            <p class="mb-0">123 <?php echo t('vacancy'); ?></p>
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                         <a class="cat-item rounded p-4" href="">
                             <i class="fa fa-3x fa-book-reader text-primary mb-4"></i>
-                            <h6 class="mb-3">Teaching & Education</h6>
-                            <p class="mb-0">123 Vacancy</p>
+                            <h6 class="mb-3"><?php echo t('teaching_education'); ?></h6>
+                            <p class="mb-0">123 <?php echo t('vacancy'); ?></p>
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
                         <a class="cat-item rounded p-4" href="">
                             <i class="fa fa-3x fa-drafting-compass text-primary mb-4"></i>
-                            <h6 class="mb-3">Design & Creative</h6>
-                            <p class="mb-0">123 Vacancy</p>
+                            <h6 class="mb-3"><?php echo t('design_creative'); ?></h6>
+                            <p class="mb-0">123 <?php echo t('vacancy'); ?></p>
                         </a>
                     </div>
                 </div>
@@ -167,12 +167,12 @@
                         </div>
                     </div>
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                        <h1 class="mb-4">We Help To Get The Best Job And Find A Talent</h1>
-                        <p class="mb-4">We connect job seekers with the best opportunities and help employers find top talent—making hiring and career growth simple and effective</p>
+                        <h1 class="mb-4"><?php echo t('we_help'); ?></h1>
+                        <p class="mb-4"><?php echo t('we_help'); ?></p>
                         <p><i class="fa fa-check text-primary me-3"></i>Access to Top Opportunities</p>
                         <p><i class="fa fa-check text-primary me-3"></i>Find the Right Talent Fast</p>
                         <p><i class="fa fa-check text-primary me-3"></i>Career Growth & Hiring Support</p>
-                        <a class="btn btn-primary py-3 px-5 mt-3" href="">Read More</a>
+                        <a class="btn btn-primary py-3 px-5 mt-3" href=""><?php echo t('read_more'); ?></a>
                     </div>
                 </div>
             </div>
@@ -182,7 +182,7 @@
         <!-- Testimonial Start -->
         <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
             <div class="container">
-                <h1 class="text-center mb-5">Our Clients Say!</h1>
+                <h1 class="text-center mb-5"><?php echo t('our_clients_say'); ?></h1>
                 <div class="owl-carousel testimonial-carousel">
                     <div class="testimonial-item bg-light rounded p-4">
                         <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>

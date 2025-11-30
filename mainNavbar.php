@@ -1,4 +1,10 @@
 <!-- Navbar Start -->
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+require_once __DIR__ . '/lang.php';
+?>
 <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
     <a href="index.php" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
         <img src="img/jobsConnect.svg" style="width:180px;" alt="">
@@ -9,10 +15,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="index.php" class="nav-item nav-link active">Home</a>
-            <a href="index.php#category" class="nav-item nav-link">Category</a>
-            <a href="index.php#about" class="nav-item nav-link">About</a>
-            <a href="contact.php" class="nav-item nav-link">Contact</a>
+            <a href="index.php" class="nav-item nav-link active"><?php echo t('home'); ?></a>
+            <a href="index.php#category" class="nav-item nav-link"><?php echo t('category'); ?></a>
+            <a href="index.php#about" class="nav-item nav-link"><?php echo t('about'); ?></a>
+            <a href="contact.php" class="nav-item nav-link"><?php echo t('contact'); ?></a>
+        </div>
+        <div class="d-flex align-items-center ms-3 me-2">
+            <a class="nav-link p-1" href="setLanguage.php?lang=en">EN</a>
+            <span class="mx-1">|</span>
+            <a class="nav-link p-1" href="setLanguage.php?lang=bn">বাংলা</a>
         </div>
         <?php
         if (session_status() == PHP_SESSION_NONE) {
@@ -20,12 +31,12 @@
         }
         if (isset($_SESSION['login_admin'])) {
             $myusername = $_SESSION['login_admin'];
-            echo '<a href="adminAccount.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">VIEW ACCOUNT<i class="fa fa-arrow-right ms-3"></i></a>';
+            echo '<a href="adminAccount.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">'.t('view_account').'<i class="fa fa-arrow-right ms-3"></i></a>';
         } elseif (isset($_SESSION['login_user'])) {
             $myusername = $_SESSION['login_user'];
-            echo '<a href="jobs.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">VIEW JOBS<i class="fa fa-arrow-right ms-3"></i></a>';
+            echo '<a href="jobs.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">'.t('view_jobs').'<i class="fa fa-arrow-right ms-3"></i></a>';
         } else {
-            echo '<a href="jobs.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">GO TO JobVerse<i class="fa fa-arrow-right ms-3"></i></a>';
+            echo '<a href="jobs.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">'.t('go_to_jobverse').'<i class="fa fa-arrow-right ms-3"></i></a>';
         }
         ?>
     </div>

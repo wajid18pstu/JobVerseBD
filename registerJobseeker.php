@@ -1,6 +1,9 @@
 <?php
 include 'connect.php';
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+require_once __DIR__ . '/lang.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -56,9 +59,9 @@ VALUES ('$name', '$email', '$password','$qlf', '$dob', '$skills','$fileName')";
                     <div class="modal-content">
                         <div class="modal-header">
 
-                            <h3>Thanks for Registering with us.. <br>Login to continue using our services</h3>
+                            <h3><?php echo t('jobseeker_registered_ok'); ?></h3>
                             <br>
-                            <a href="index.php?msg=login">Login</a>
+                            <a href="index.php?msg=login"><?php echo t('login_link_text'); ?></a>
                         </div>
                     </div>
                 </div>

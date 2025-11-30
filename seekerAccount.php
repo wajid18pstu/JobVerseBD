@@ -1,4 +1,5 @@
 <?php include 'authorizeSeeker.php'; ?>
+<?php require_once __DIR__ . '/lang.php'; ?>
 <html>
 
 <head>
@@ -7,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="img/jobsConnect.svg" type="image/x-icon">
-    <title> Account | Job Seeker</title>
+    <title><?php echo t('account_seeker_title'); ?></title>
 
     <link href="css/simpleGridTemplate.css" rel="stylesheet" type="text/css">
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
@@ -208,9 +209,9 @@
                             <div class="panel panel-default" style="padding-top:10px;padding-bottom:300px;  background: #fff; border-radius: 16px; text-align: center;">
                                 <img src="img/<?php echo htmlspecialchars($rowE["profile_image"] ? $rowE["profile_image"] : '1.jpg'); ?>" class="img-circle" width="150" height="150" style="object-fit:cover; margin-bottom: 20px;">
                                 <form method="post" enctype="multipart/form-data">
-                                    <label for="profile_image">Change Profile Image</label>
+                                    <label for="profile_image"><?php echo t('change_profile_image'); ?></label>
                                     <input type="file" name="profile_image" id="profile_image" class="form-control" accept="image/*">
-                                    <input type="submit" name="upload_image" value="Upload Image" class="btn btn-primary" style="margin-top: 10px;">
+                                    <input type="submit" name="upload_image" value="<?php echo t('upload_image'); ?>" class="btn btn-primary" style="margin-top: 10px;">
                                 </form>
                             </div>
                         </div>
@@ -218,17 +219,17 @@
                         <!-- Right Column - User Info -->
                         <div class="col-md-8">
                             <div class="panel panel-default" style="padding-top:10px; padding-bottom:300px; background: #fff; border-radius: 16px;">
-                                <h3 style="color: #333; margin-bottom: 25px;">User Information</h3>
+                                <h3 style="color: #333; margin-bottom: 25px;"><?php echo t('user_information'); ?></h3>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label style="font-size: 16px; color: #666;">Name</label>
+                                            <label style="font-size: 16px; color: #666;"><?php echo t('name_label'); ?></label>
                                             <h4 style="color: #333; margin-top: 5px;"><?php echo htmlspecialchars($name); ?></h4>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label style="font-size: 16px; color: #666;">Email</label>
+                                            <label style="font-size: 16px; color: #666;"><?php echo t('email_label'); ?></label>
                                             <h4 style="color: #333; margin-top: 5px;"><?php echo htmlspecialchars($email); ?></h4>
                                         </div>
                                     </div>
@@ -255,11 +256,11 @@
                     <div class="row" style="margin-top: 30px;">
                         <div class="col-md-12">
                             <div class="panel panel-default" style="padding-top:20px;padding-bottom:650px;  background: #fff; border-radius: 16px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                                <h3 style="color: #333; margin-bottom: 30px;">Professional Profile</h3>
+                                <h3 style="color: #333; margin-bottom: 30px;"><?php echo t('professional_profile'); ?></h3>
                                 <form method="post" enctype="multipart/form-data">
                                     
                                     <div class="form-group" style="margin-bottom: 30px;">
-                                        <label for="linkedin_profile" style="font-size: 16px; margin-bottom: 10px; color: #555;">LinkedIn Profile URL</label>
+                                        <label for="linkedin_profile" style="font-size: 16px; margin-bottom: 10px; color: #555;"><?php echo t('linkedin_profile_label'); ?></label>
                                         <input type="url" name="linkedin_profile" id="linkedin_profile" class="form-control input-lg" 
                                             value="<?php echo htmlspecialchars($rowE['linkedin_profile'] ?? ''); ?>" 
                                             placeholder="https://www.linkedin.com/in/yourprofile"
@@ -267,7 +268,7 @@
                                     </div>
                                     
                                     <div class="form-group" style="margin-bottom: 30px;">
-                                        <label for="cv_file" style="font-size: 16px; margin-bottom: 10px; color: #555;">Upload CV (PDF)</label>
+                                        <label for="cv_file" style="font-size: 16px; margin-bottom: 10px; color: #555;"><?php echo t('upload_cv'); ?></label>
                                         <input type="file" name="cv_file" id="cv_file" class="form-control input-lg" accept=".pdf" style="height: 50px; padding: 10px;">
                                         <?php if(!empty($rowE['cv_file'])): ?>
                                             <div class="alert alert-info" style="margin-top: 10px;">
@@ -278,7 +279,7 @@
                                     </div>
                                     
                                     <div class="form-group" style="margin-bottom: 30px;">
-                                        <label for="certificates" style="font-size: 16px; margin-bottom: 10px; color: #555;">Upload Certificates (PDF)</label>
+                                        <label for="certificates" style="font-size: 16px; margin-bottom: 10px; color: #555;"><?php echo t('upload_certificates'); ?></label>
                                         <input type="file" name="certificates[]" id="certificates" class="form-control input-lg" accept=".pdf" multiple style="height: 50px; padding: 10px;">
                                         <?php if(!empty($rowE['certificates'])): ?>
                                             <div class="alert alert-info" style="margin-top: 10px;">
@@ -293,7 +294,7 @@
                                         <?php endif; ?>
                                     </div>
                                     
-                                    <input type="submit" name="update_profile" value="Update Professional Profile" 
+                                    <input type="submit" name="update_profile" value="<?php echo t('update_professional_profile'); ?>" 
                                         class="btn btn-primary btn-lg" 
                                         style="width: 100%; margin-top: 20px; padding: 15px; font-size: 16px;">
                                 </form>

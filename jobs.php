@@ -131,10 +131,10 @@
 
       <div style="width: 100%" class="row">
         <div class="col-md-9">
-          <div style=" margin-top: 50px; color: #000000ff; padding-left: 50px;">
-            <h1 id="jbs">Find jobs</h1>
+            <div style=" margin-top: 50px; color: #000000ff; padding-left: 50px;">
+            <h1 id="jbs"><?php echo t('find_jobs'); ?></h1>
             <form class="example" action="jobs.php">
-              <input style="color: #000; height:45px; width:800px; border-radius:30px 0px 0px 30px;" type="text" placeholder="     Search For Jobs.." name="q">
+              <input style="color: #000; height:45px; width:800px; border-radius:30px 0px 0px 30px;" type="text" placeholder="     <?php echo t('search_for_jobs'); ?>" name="q">
               <button type="submit" style="margin-top: 10px; height:45px; width:160px; border-radius:0px 30px 30px 0px; background-color: #000000ff; "><i class="fa fa-search bb"></i></button>
             </form>
           </div>
@@ -153,7 +153,7 @@
               while ($row = $totalresult->fetch_assoc()) {
                 $numberofposts = $row['AllPosts'];
             ?>
-                <h3 style="font-family: 'Schoolbell', cursive; font-family: 'Vollkorn', serif; color: #000000ff; padding-left:4px;"> Total Job Posts Available: <?php echo $numberofposts; ?> </h3>
+                <h3 style="font-family: 'Schoolbell', cursive; font-family: 'Vollkorn', serif; color: #000000ff; padding-left:4px;"> <?php echo t('total_job_posts'); ?> <?php echo $numberofposts; ?> </h3>
             <?php }
             } ?>
 
@@ -166,7 +166,7 @@
               while ($row = $userresult->fetch_assoc()) {
                 $numberofusers = $row['SeekersAndEmployers'];
             ?>
-                <h3 style="font-family: 'Schoolbell', cursive; font-family: 'Vollkorn', serif; color: #000000ff; padding-left:4px;"> Active Users: <?php echo $numberofusers; ?> </h3>
+                <h3 style="font-family: 'Schoolbell', cursive; font-family: 'Vollkorn', serif; color: #000000ff; padding-left:4px;"> <?php echo t('active_users'); ?> <?php echo $numberofusers; ?> </h3>
             <?php }
             } ?>
             <!--------------------------------------------------------------------------------------------->
@@ -210,17 +210,17 @@
                     <!-- ------------------------------------------------------------------ -->
                     <h5 style="color: #000000ff">By <?php echo $ename; ?> </h5> <br>
                     <!-- ------------------------------------------------------------------ -->
-                    <h5> <b style="color: #000000ff">Job Description:</b> <br> </h5>
+                    <h5> <b style="color: #000000ff"><?php echo t('job_description'); ?></b> <br> </h5>
                     <h5><?php echo $desc; ?></h5>
                     <!-- ------------------------------------------------------------------ -->
-                    <h5><b style="color: #000000ff">Experience Required:</b>
+                    <h5><b style="color: #000000ff"><?php echo t('experience_required'); ?></b>
                       <?php echo $minexp; ?> years </h5>
                     <!-- ------------------------------------------------------------------ -->
-                    <h5><b style="color: #000000ff">Salary:</b>
+                    <h5><b style="color: #000000ff"><?php echo t('salary'); ?></b>
                       <?php echo $salary; ?> </h5> <br>
                     <!-- ------------------------------------------------------------------ -->
                     <a href="applyJob.php?id=<?php echo $pid; ?>" class="pull-right" style="font-family: 'Sora', sans-serif; color: #000000ff;">
-                      <h3><strong>Apply</strong></h3>
+                      <h3><strong><?php echo t('apply'); ?></strong></h3>
                     </a>
                   </div>
 
@@ -247,14 +247,14 @@
 
           <br><br>
           <div style="padding-top:10px; color: #000000ff; padding-left:50px;">
-            <h3>Jobs By Category</h3>
+            <h3><?php echo t('jobs_by_category'); ?></h3>
             <form>
 
               <div>
                 <select class="form-control" name='category' style="border-radius:0px;">
                   <?php include "categoryOptions.php"; ?>
                 </select><br>
-                <input class=" btn-success pull-right mbbtn" type="submit" value="Search" style="border-radius:0px;" />
+                <input class=" btn-success pull-right mbbtn" type="submit" value="<?php echo t('search'); ?>" style="border-radius:0px;" />
               </div>
 
             </form>

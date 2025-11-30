@@ -1,7 +1,10 @@
 <?php
 
 include 'connect.php';
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+require_once __DIR__ . '/lang.php';
 
 $name = $email = $password = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -54,9 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="modal-content">
                         <div class="modal-header">
 
-                            <h3>Employer has been registered.. <br>Login to continue using our services</h3>
+                            <h3><?php echo t('employer_registered_ok'); ?></h3>
                             <br>
-                            <a href="index.php?msg=login">Login</a>
+                            <a href="index.php?msg=login"><?php echo t('login_link_text'); ?></a>
                         </div>
                     </div>
                 </div>

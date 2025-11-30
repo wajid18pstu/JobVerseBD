@@ -1,4 +1,5 @@
 <?php include 'authorizeEmployer.php'; ?>
+<?php require_once __DIR__ . '/lang.php'; ?>
 <html>
 
 <head>
@@ -7,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="img/jobsConnect.svg" type="image/x-icon">
-    <title> Account | Employer</title>
+    <title><?php echo t('account_employer_title'); ?></title>
 
     <link href="css/simpleGridTemplate.css" rel="stylesheet" type="text/css">
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
@@ -165,19 +166,19 @@
                             <div class="panel panel-default" style="padding: 40px 20px;  background: #fff; border-radius: 16px; min-height: 300px;">
                                 <img src="img/<?php echo htmlspecialchars($fileName ? $fileName : '2.jpg'); ?>" class="img-circle pc" width="120" height="120" style="object-fit:cover; margin-bottom: 20px;">
                                 <form method="post" enctype="multipart/form-data">
-                                    <label for="profile_image">Change Profile Image</label>
+                                    <label for="profile_image"><?php echo t('change_profile_image'); ?></label>
                                     <input type="file" name="profile_image" id="profile_image" accept="image/*" required class="form-control" style="margin-bottom:15px;">
-                                    <button type="submit" name="upload_image" class="btn btn-primary btn-md">Upload</button>
+                                    <button type="submit" name="upload_image" class="btn btn-primary btn-md"><?php echo t('upload'); ?></button>
                                 </form>
                             </div>
                         </div>
                         <div class="col-md-7" style="padding-left:90px;">
                             <div class="panel panel-default" style="padding: 10px 40px; background: #fff; border-radius: 16px; min-height: 300px; display: flex; flex-direction: column; justify-content: center;">
-                                <h3 style="margin-bottom: 10px;">User Name :</h3>
-                                <h2 style="margin-bottom: 10px;"><b><?php echo $name; ?></b></h2>
+                                <h3 style="margin-bottom: 10px;"><?php echo t('user_name'); ?> :</h3>
+                                <h2 style="margin-bottom: 10px;"><b><?php echo htmlspecialchars($name); ?></b></h2>
                                 <div>
-                                    <h3>Email :</h3>
-                                    <h2><strong><?php echo $email; ?></strong></h2>
+                                    <h3><?php echo t('email_label'); ?> :</h3>
+                                    <h2><strong><?php echo htmlspecialchars($email); ?></strong></h2>
                                 </div>
                             </div>
                         </div>
@@ -186,18 +187,18 @@
 
                 <div style=" height: 100vh; margin-top:0px;" class="col-md-12">
                     <div>
-                        <h3 style="padding-bottom:30px;">Jobs Posted:</h3>
-                    </div>
+                            <h3 style="padding-bottom:30px;"><?php echo t('jobs_posted'); ?></h3>
+                        </div>
                     <table class="table table-hover table-responsive table-striped" id='postTable'>
                         <thead>
-                            <th>Post Id</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Min Experience</th>
-                            <th>Salary</th>
-                            <th>Status</th>
-                            <th>Update</th>
-                            <th>Delete</th>
+                                <th><?php echo t('post_id'); ?></th>
+                                <th><?php echo t('job_title'); ?></th>
+                                <th><?php echo t('job_description'); ?></th>
+                                <th><?php echo t('min_experience'); ?></th>
+                                <th><?php echo t('salary'); ?></th>
+                                <th><?php echo t('status'); ?></th>
+                                <th><?php echo t('update'); ?></th>
+                                <th><?php echo t('delete'); ?></th>
                         </thead>
                         <tbody>
 

@@ -38,7 +38,7 @@
 
 
   <div style="background-color: #FF5757; width: 100%; height: 650px; padding-top: 200px; text-align: center;">
-    <h1 style="font-size: 80px;">Your Post Published!!</h1>
+    <h1 style="font-size: 80px;"><?php echo t('post_published'); ?></h1>
     <img src="img/5.gif" width="300" height="300" />
 
   </div>

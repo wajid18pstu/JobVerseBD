@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 
         <div class="hero">
 
-            <h3 class="pc" style="padding-top: 120px; font-size: 90px; text-align: center;"><b>POST A JOB</b></h3>
+            <h3 class="pc" style="padding-top: 120px; font-size: 90px; text-align: center;"><b><?php echo t('post_job_heading'); ?></b></h3>
 
             <div class="container contact-form" style=" background-color: #cececeff; width: 700px;border-radius: 20px; height: 1100px; box-shadow: 0px 0px 25px #000000ff; 
                  align-items: center; justify-content: center; display: flex; padding: 0px; ">
@@ -172,58 +172,58 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                             <input type='hidden' value="<?php echo $id; ?>" name='id' />
 
                             <div class="form-group">
-                                <label for="name">Job Title:</label>
-                                <input type="text" name="name" class="form-control" style="border-radius:0px; height: 50px;" placeholder="Enter Job Title" value="<?php echo $name; ?>" />
+                                <label for="name"><?php echo t('job_title_label'); ?></label>
+                                <input type="text" name="name" class="form-control" style="border-radius:0px; height: 50px;" placeholder="<?php echo t('enter_job_title'); ?>" value="<?php echo $name; ?>" />
                             </div>
 
                             <div class="form-group">
-                                <label for="category">Job Category</label>
+                                <label for="category"><?php echo t('job_category_label'); ?></label>
                                 <select type="text" name="category" class="form-control" style="border-radius:0px; height: 50px;" placeholder="Category"> <?php include 'categoryOptions.php'; ?>
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="minexp">Minimum Experiance</label>
-                                <input type="text" name="minexp" class="form-control" style="border-radius:0px; height: 50px;" placeholder="Enter Minimum Expireince" value="<?php echo $minexp; ?>" />
+                                <label for="minexp"><?php echo t('minimum_experience_label'); ?></label>
+                                <input type="text" name="minexp" class="form-control" style="border-radius:0px; height: 50px;" placeholder="<?php echo t('enter_min_experience'); ?>" value="<?php echo $minexp; ?>" />
                             </div>
 
                             <div class="form-group">
-                                <label for="salary">Salary Budget</label>
-                                <input type="text" name="salary" class="form-control" style="border-radius:0px; height: 50px;" placeholder="Enter Salary" value="<?php echo $salary; ?>" />
+                                <label for="salary"><?php echo t('salary_budget_label'); ?></label>
+                                <input type="text" name="salary" class="form-control" style="border-radius:0px; height: 50px;" placeholder="<?php echo t('enter_salary'); ?>" value="<?php echo $salary; ?>" />
                             </div>
 
                             <div class="form-group">
-                                <label for="industry">Job industry</label>
+                                <label for="industry"><?php echo t('job_industry_label'); ?></label>
                                 <select type="text" name="industry" class="form-control" style="border-radius:0px; height: 50px;" placeholder="Industry"> <?php include 'industryOptions.php'; ?>
                                 </select>
                             </div>
 
 
                             <div class="form-group">
-                                <label for="desc">Job requirements</label>
-                                <input type="text" name="desc" class="form-control" style="border-radius:0px; height: 50px;" placeholder="Description" value="<?php echo $desc; ?>" />
+                                <label for="desc"><?php echo t('job_requirements_label'); ?></label>
+                                <input type="text" name="desc" class="form-control" style="border-radius:0px; height: 50px;" placeholder="<?php echo t('description_placeholder'); ?>" value="<?php echo $desc; ?>" />
                             </div>
 
                             <div class="form-group">
-                                <label for="role">Role</label>
-                                <input type="text" name="role" class="form-control" style="border-radius:0px; height: 50px;" placeholder="Enter Role" value="<?php echo $role; ?>" />
+                                <label for="role"><?php echo t('role_label'); ?></label>
+                                <input type="text" name="role" class="form-control" style="border-radius:0px; height: 50px;" placeholder="<?php echo t('enter_role'); ?>" value="<?php echo $role; ?>" />
                             </div>
 
                             <div class="form-group">
-                                <label for="eType">Employment Type</label>
+                                <label for="eType"><?php echo t('employment_type_label'); ?></label>
                                 <select type="text" name="eType" class="form-control" style="border-radius:0px; height: 50px;">
-                                    <option>Permanent</option>
-                                    <option>Part-Time</option>
+                                    <option><?php echo t('permanent'); ?></option>
+                                    <option><?php echo t('part_time'); ?></option>
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="eType">Status</label>
+                                <label for="eType"><?php echo t('status_label'); ?></label>
                                 <select type="text" name="status" class="form-control" style="border-radius:0px; height: 50px;">
-                                    <option>Open <?php if ($status == 'open') {
+                                    <option><?php echo t('open_label'); ?> <?php if ($status == 'open') {
                                                         echo "checked='true'";
                                                     } ?> </option>
-                                    <option>Close <?php if ($status == 'closed') {
+                                    <option><?php echo t('close_label'); ?> <?php if ($status == 'closed') {
                                                         echo "checked='true'";
                                                     } ?> </option>
                                 </select>
@@ -232,7 +232,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                             <div class="form-group bbb">
 
                                 <button type="submit" name="submitPost" class="btn" style="background-color: #001219; color: #ffffffff;
-                            box-shadow: none; border-radius: 0px; height: 50px; width: 500px;"> <b> POST A JOB </b> </button>
+                            box-shadow: none; border-radius: 0px; height: 50px; width: 500px;"> <b> <?php echo t('post_submit'); ?> </b> </button>
 
                                 <!--display message-->
                                 <div style="font-family: Sora; font-size: 15px; color: #000000ff; padding-top: 15px;">

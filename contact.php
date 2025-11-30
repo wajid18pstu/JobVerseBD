@@ -99,11 +99,11 @@
         <!-- Header End -->
         <div class="container-xxl py-5 bg-dark page-header mb-5">
             <div class="container my-5 pt-5 pb-4">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Contact</h1>
+                <h1 class="display-3 text-white mb-3 animated slideInDown"><?php echo t('contact_for_query'); ?></h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb text-uppercase">
-                        <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item text-white active" aria-current="page">Contact</li>
+                        <li class="breadcrumb-item"><a href="index.php"><?php echo t('home'); ?></a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page"><?php echo t('contact'); ?></li>
                     </ol>
                 </nav>
             </div>
@@ -114,7 +114,7 @@
         <!-- Contact Start -->
         <div class="container-xxl py-5">
             <div class="container">
-                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Contact For Any Query</h1>
+                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s"><?php echo t('contact_for_query'); ?></h1>
                 <div class="row g-4">
                     <div class="col-12">
                         <div class="row gy-4">
@@ -150,40 +150,40 @@
                     <div id="frmContact" class="col-md-6">
                         <div id="mail-status"></div>
                         <div class="wow fadeInUp" data-wow-delay="0.5s">
-                            <p class="mb-4">Any questions or remarks? Just write us a meesage.</p>
+                            <p class="mb-4"><?php echo t('any_questions'); ?></p>
                             <form>
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" name="userName" id="userName" placeholder="Your Name">
-                                            <label for="name">Your Name</label>
+                                            <input type="text" class="form-control" name="userName" id="userName" placeholder="<?php echo t('your_name'); ?>">
+                                            <label for="name"><?php echo t('your_name'); ?></label>
                                             <span id="userName-info" class="info"></span><br />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="Your Email">
-                                            <label for="email">Your Email</label>
+                                            <input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="<?php echo t('your_email'); ?>">
+                                            <label for="email"><?php echo t('your_email'); ?></label>
                                             <span id="userEmail-info" class="info"></span><br />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
-                                        <label for="subject">Subject</label>
+                                        <input type="text" class="form-control" name="subject" id="subject" placeholder="<?php echo t('subject'); ?>">
+                                        <label for="subject"><?php echo t('subject'); ?></label>
                                         <span id="subject-info" class="info"></span><br />
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a message here" name="content" id="content" style=" height: 150px"></textarea>
-                                        <label for="content">Message</label>
+                                        <textarea class="form-control" placeholder="<?php echo t('message'); ?>" name="content" id="content" style=" height: 150px"></textarea>
+                                        <label for="content"><?php echo t('message'); ?></label>
                                         <span id="content-info" class="info"></span><br />
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit" name="submit" onClick="sendContact();">Send Message</button>
+                                    <button class="btn btn-primary w-100 py-3" type="submit" name="submit" onClick="sendContact();"><?php echo t('send_message'); ?></button>
                                 </div>
                         </div>
                         </form>

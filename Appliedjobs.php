@@ -106,11 +106,11 @@
 
                     <div style="padding-left: 500px; padding-top: 150px;">
                         <div>
-                            <h4>User Name</h4>
+                            <h4><?php echo t('user_name'); ?></h4>
                             <h2><?php echo $name; ?></h2>
                         </div>
                         <div style="padding-top: 30px;">
-                            <h4>Email</h4>
+                            <h4><?php echo t('email_label'); ?></h4>
                             <h2><?php echo $email; ?></h2>
                         </div>
                     </div>
@@ -118,18 +118,18 @@
 
                 <div style=" height: 100vh; margin-top:0%;" class="col-md-12">
                     <div>
-                        <h3 style=" padding-bottom: 30px;">Jobs Applied by you:</h3>
+                        <h3 style=" padding-bottom: 30px;"><?php echo t('jobs_applied_by_you'); ?></h3>
                     </div>
                     <table class="table table-hover table-responsive table-striped" id='jobappliedTable'>
                         <thead>
-                            <th>Post Id</th>
-                            <th>Company Name</th>
-                            <th>Job Title</th>
-                            <th>Date Applied</th>
-                            <th>Min Experiance</th>
-                            <th>Salary</th>
-                            <th>Job Description</th>
-                            <th>Status</th>
+                            <th><?php echo t('post_id'); ?></th>
+                            <th><?php echo t('company_name'); ?></th>
+                            <th><?php echo t('job_title'); ?></th>
+                            <th><?php echo t('date_applied'); ?></th>
+                            <th><?php echo t('min_experience'); ?></th>
+                            <th><?php echo t('salary'); ?></th>
+                            <th><?php echo t('job_description'); ?></th>
+                            <th><?php echo t('status'); ?></th>
 
                         </thead>
                         <tbody>

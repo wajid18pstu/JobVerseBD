@@ -3,6 +3,7 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
+require_once __DIR__ . '/lang.php';
 ?>
 <!--FONTS-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +36,7 @@ if (session_status() == PHP_SESSION_NONE) {
         // true then header redirect it to the home page directly 
         {
           $myusername = $_SESSION['login_user'];
-          echo ' <li><a href="jobs.php">JOBS</a></li>
+          echo ' <li><a href="jobs.php">'.t('jobs').'</a></li>
           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">' . $myusername . '<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="seekerAccount.php">My Profile</a></li>
@@ -49,7 +50,7 @@ if (session_status() == PHP_SESSION_NONE) {
         // true then header redirect it to the home page directly 
         {
           $myusername = $_SESSION['login_employer'];
-          echo ' <li><a href="postjob.php">Post a job</a></li>
+          echo ' <li><a href="postjob.php">'.t('post_a_job').'</a></li>
           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">' . $myusername . '<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="employerAccount.php">My Account</a></li>
@@ -64,18 +65,21 @@ if (session_status() == PHP_SESSION_NONE) {
           $myusername = $_SESSION['login_admin'];
           echo ' <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">' . $myusername . '<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="adminAccount.php">My Account</a></li>
+            <li><a href="adminAccount.php">'.t('view_account').'</a></li>
               <li><a href="ViewApplicantsAdmin.php">View All Applications</a></li>
-            <li><a href="logout.php">Logout</a></li>
+            <li><a href="logout.php">'.t('logout').'</a></li>
        
           </ul>
         </li>';
         } elseif (!isset($_SESSION['login_employer']) && !isset($_SESSION['login_user'])) {
 
-          echo '<li><a id="loginAnchor" href="#" data-toggle="modal" data-target="#myEmployerModal">
-  SIGN IN 
-</a></li>';
+          echo '<li><a id="loginAnchor" href="#" data-toggle="modal" data-target="#myEmployerModal">'.t('sign_in').'</a></li>';
         }  ?>
+        <li style="display:flex; align-items:center; padding-left:8px;">
+          <a href="setLanguage.php?lang=en" style="color:#fff; padding:6px;">EN</a>
+          <span style="color:#fff; padding:0 6px;">|</span>
+          <a href="setLanguage.php?lang=bn" style="color:#fff; padding:6px;">বাংলা</a>
+        </li>
       </ul>
 
     </div>
