@@ -255,10 +255,24 @@
 
 /*** Category ***/
 .cat-item {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 180px;
     box-shadow: 0 0 45px rgba(0, 0, 0, .08);
     border: 1px solid transparent;
     transition: .5s;
+}
+
+a.cat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: inherit;
 }
 
 .cat-item:hover {

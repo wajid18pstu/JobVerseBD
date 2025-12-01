@@ -144,6 +144,9 @@
                                 . "status from jobsapplied j where pid in (select id from post where eid=$eid);";
 
                             $appresult = $conn->query($sql);
+                            // DEBUG: Check query results
+                            // echo "<!-- DEBUG: Query returned " . $appresult->num_rows . " rows -->";
+                            
                             if ($appresult->num_rows > 0) {
                                 // output data of each row
                                 while ($row = $appresult->fetch_assoc()) {
@@ -154,7 +157,7 @@
                                     $date = $row['date'];
                                     $skills = $row['skills'];
                                     $status = $row['status'];
-                                    $resume = $row['resume'];
+                                    $resume = $row['resume'] ?? '';  // Set default empty string if not in query
 
                             ?>
                                     <tr>

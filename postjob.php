@@ -1,11 +1,12 @@
 <?php
 
-
-// Create connection
-
 include 'authorizeEmployer.php';
+include 'sslcommerz_config.php';
+
 $id = 0;
 $name = $category = $minexp = $salary = $industry = $desc = $role = $eType = $status = $msg = "";
+$jobType = "white_collar";
+$paymentFee = 0;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET') {
     include 'connect.php';
@@ -27,7 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
     }
 
     if (isset($_POST['submitPost'])) {
-
+        // This will now trigger payment instead of direct posting
+        // Store form data in session temporarily for use after payment
         $id = $_POST['id'];
         $name = $_POST['name'];
         
@@ -38,8 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             } else {
                 $category = $_POST['blueCollarCategory'];
             }
+            $jobType = 'blue_collar';
         } elseif (isset($_POST['whitCollarCategory']) && $_POST['whitCollarCategory'] !== '') {
             $category = $_POST['whitCollarCategory'];
+            $jobType = 'white_collar';
         } else {
             $category = $_POST['category'];
         }
@@ -51,33 +55,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
         $role = $_POST['role'];
         $eType = $_POST['eType'];
         $status = $_POST['status'];
-
-        if ($id > 0) {
-            $sql = "Update `post` set `date`=CURRENT_DATE(),"
-                . "`name`='$name', "
-                . "`category`='$category', "
-                . "`minexp`='$minexp', "
-                . "`desc`='$desc', "
-                . "`salary`='$salary', "
-                . "`industry`='$industry', "
-                . "`role`='$role', "
-                . "`employmentType`='$eType', "
-                . "`status`= '$status' "
-                . "where id=$id and eid=$eid;";
-        } else {
-            $sql = "INSERT INTO `post` (`id`, `date`, `eid`, `name`, `category`, `minexp`, `desc`, `salary`, `industry`, `role`, `employmentType`, `status`) "
-                . "VALUES (NULL, CURRENT_DATE(), '$eid', '$name', '$category', '$minexp', '$desc', '$salary', '$industry', '$role', '$eType', '$status');";
-        }
-
-        if ($conn->query($sql) === TRUE) {
-            if ($_GET['update']) {
-                header('location: employerAccount.php');
-            } else {
-                $msg = "New Post has been created successfully";
-            }
-        } else {
-            $msg = "Error: " . $sql . "<br>" . $conn->error;
-        }
+        
+        // Get payment fee based on job type
+        $paymentFee = getJobPostingFee($jobType);
+        
+        // Store form data in session for payment completion
+        $_SESSION['job_form_data'] = array(
+            'id' => $id,
+            'name' => $name,
+            'category' => $category,
+            'minexp' => $minexp,
+            'salary' => $salary,
+            'industry' => $industry,
+            'desc' => $desc,
+            'role' => $role,
+            'employmentType' => $eType,
+            'status' => $status,
+            'job_type' => $jobType
+        );
+        
+        // Set flag to show payment modal
+        $_SESSION['show_payment_modal'] = true;
+        $_SESSION['payment_fee'] = $paymentFee;
+        
+        $msg = "PAYMENT_REQUIRED"; // Signal to show payment modal
     }
 }
 ?>
@@ -322,7 +323,75 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
     <script src="js/tilt.jquery.min.js"></script>
     <script src="js/signinModal.js"></script>
     
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal fade" role="dialog" style="z-index: 10000;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #001219; color: white;">
+                    <button type="button" class="close" data-dismiss="modal" style="color: white;">&times;</button>
+                    <h4 class="modal-title">Job Posting Payment</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="paymentDetails">
+                        <h5>Payment Summary</h5>
+                        <table class="table table-bordered">
+                            <tr>
+                                <td><strong>Job Type:</strong></td>
+                                <td><span id="jobTypeDisplay"></span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Amount:</strong></td>
+                                <td><span id="amountDisplay"></span> Taka</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Status:</strong></td>
+                                <td>Pending Admin Confirmation</td>
+                            </tr>
+                        </table>
+                        <p style="color: #666; font-size: 14px;">
+                            Your job posting will be submitted for admin review after payment confirmation.
+                        </p>
+                    </div>
+                    <div id="paymentProcessing" style="display: none; text-align: center;">
+                        <p>Processing payment...</p>
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelPaymentBtn">Cancel</button>
+                    <button type="button" class="btn btn-primary" style="background-color: #001219; border-color: #001219;" id="proceedPaymentBtn">Proceed to Payment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script>
+        let currentJobType = '<?php echo isset($_SESSION['show_payment_modal']) ? (isset($_SESSION['job_form_data']['job_type']) ? $_SESSION['job_form_data']['job_type'] : 'white_collar') : 'white_collar'; ?>';
+        let currentPaymentFee = <?php echo isset($_SESSION['payment_fee']) ? $_SESSION['payment_fee'] : 0; ?>;
+        
+        // Show payment modal if flag is set
+        <?php if (isset($_SESSION['show_payment_modal']) && $_SESSION['show_payment_modal']): ?>
+        $(document).ready(function() {
+            updatePaymentModal(currentJobType, currentPaymentFee);
+            $('#paymentModal').modal('show');
+            // Clear the session flags after modal is shown
+            <?php 
+            unset($_SESSION['show_payment_modal']);
+            unset($_SESSION['payment_fee']);
+            ?>
+        });
+        <?php endif; ?>
+        
+        function updatePaymentModal(jobType, fee) {
+            let displayType = jobType === 'blue_collar' ? 'Blue Collar' : 'White Collar';
+            $('#jobTypeDisplay').text(displayType);
+            $('#amountDisplay').text(fee);
+            currentJobType = jobType;
+            currentPaymentFee = fee;
+        }
+        
         function handleCategoryChange() {
             const categorySelect = document.getElementById('categorySelect').value;
             const blueCollarSection = document.getElementById('blueCollarSection');
@@ -350,6 +419,76 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                 customCategoryDiv.style.display = 'none';
             }
         }
+        
+        // Payment modal handlers
+        $('#proceedPaymentBtn').click(function() {
+            $('#paymentProcessing').show();
+            $('#paymentDetails').hide();
+            $(this).prop('disabled', true);
+            
+            // Get the job data from form
+            let jobData = {
+                name: $('input[name="name"]').val(),
+                category: getCurrentCategory(),
+                minexp: $('input[name="minexp"]').val(),
+                salary: $('input[name="salary"]').val(),
+                industry: $('select[name="industry"]').val(),
+                desc: $('input[name="desc"]').val(),
+                role: $('input[name="role"]').val(),
+                eType: $('select[name="eType"]').val(),
+                status: $('select[name="status"]').val()
+            };
+            
+            // Use test endpoint for localhost, production for live domain
+            let endpoint = 'initiate_payment.php';
+            <?php if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false): ?>
+            endpoint = 'initiate_payment_test.php';
+            <?php endif; ?>
+            
+            // Send to payment initiation
+            $.ajax({
+                url: endpoint,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    job_type: currentJobType,
+                    job_data: jobData
+                }),
+                success: function(response) {
+                    if (response.success) {
+                        // Redirect to SSLCommerz gateway or test success page
+                        window.location.href = response.gateway_url;
+                    } else {
+                        alert('Error: ' + response.message);
+                        location.reload();
+                    }
+                },
+                error: function() {
+                    alert('Error initiating payment. Please try again.');
+                    location.reload();
+                }
+            });
+        });
+        
+        $('#cancelPaymentBtn').click(function() {
+            $('#paymentModal').modal('hide');
+            $('#paymentDetails').show();
+            $('#paymentProcessing').hide();
+            $('#proceedPaymentBtn').prop('disabled', false);
+        });
+        
+        function getCurrentCategory() {
+            let categorySelect = document.getElementById('categorySelect').value;
+            
+            if (categorySelect === 'blue_collar') {
+                let bcCategory = document.getElementById('blueCollarCategory').value;
+                if (bcCategory === 'Other') {
+                    return document.getElementById('customCategory').value;
+                }
+                return bcCategory;
+            } else if (categorySelect === 'white_collar') {
+                return document.getElementById('whitCollarCategory').value;
+            }
+            return categorySelect;
+        }
     </script>
-
-</html>

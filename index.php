@@ -84,62 +84,36 @@
             <div class="container">
                 <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s"><?php echo t('explore_by_category'); ?></h1>
                 <div class="row g-4">
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="cat-item rounded p-4" href="">
-                            <i class="fa fa-3x fa-mail-bulk text-primary mb-4"></i>
-                            <h6 class="mb-3"><?php echo t('marketing'); ?></h6>
-                            <p class="mb-0">123 <?php echo t('vacancy'); ?></p>
+                    <?php
+                    include 'connect.php';
+                    // Get all unique categories and count jobs in each
+                    $sql = "SELECT category, COUNT(*) as count FROM post WHERE status='open' OR status='Open' GROUP BY category ORDER BY count DESC LIMIT 8";
+                    $result = $conn->query($sql);
+                    
+                    $delay = 0.1;
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $category = $row['category'];
+                            $count = $row['count'];
+                    ?>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="<?php echo $delay; ?>s">
+                        <a class="cat-item rounded p-4" href="jobs.php?category=<?php echo urlencode($category); ?>">
+                            <i class="fa fa-3x fa-briefcase text-primary mb-4"></i>
+                            <h6 class="mb-3"><?php echo htmlspecialchars($category); ?></h6>
+                            <p class="mb-0"><?php echo $count; ?> <?php echo t('vacancy'); ?></p>
                         </a>
                     </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <a class="cat-item rounded p-4" href="">
-                            <i class="fa fa-3x fa-headset text-primary mb-4"></i>
-                            <h6 class="mb-3"><?php echo t('customer_service'); ?></h6>
-                            <p class="mb-0">123 <?php echo t('vacancy'); ?></p>
-                        </a>
+                    <?php
+                            $delay += 0.2;
+                        }
+                    } else {
+                    ?>
+                    <div class="col-12 text-center">
+                        <p><?php echo t('no_jobs_found'); ?></p>
                     </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <a class="cat-item rounded p-4" href="">
-                            <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
-                            <h6 class="mb-3"><?php echo t('human_resource'); ?></h6>
-                            <p class="mb-0">123 <?php echo t('vacancy'); ?></p>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <a class="cat-item rounded p-4" href="">
-                            <i class="fa fa-3x fa-tasks text-primary mb-4"></i>
-                            <h6 class="mb-3"><?php echo t('project_management'); ?></h6>
-                            <p class="mb-0">123 <?php echo t('vacancy'); ?></p>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="cat-item rounded p-4" href="">
-                            <i class="fa fa-3x fa-chart-line text-primary mb-4"></i>
-                            <h6 class="mb-3"><?php echo t('business_development'); ?></h6>
-                            <p class="mb-0">123 <?php echo t('vacancy'); ?></p>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <a class="cat-item rounded p-4" href="">
-                            <i class="fa fa-3x fa-hands-helping text-primary mb-4"></i>
-                            <h6 class="mb-3"><?php echo t('sales_communication'); ?></h6>
-                            <p class="mb-0">123 <?php echo t('vacancy'); ?></p>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <a class="cat-item rounded p-4" href="">
-                            <i class="fa fa-3x fa-book-reader text-primary mb-4"></i>
-                            <h6 class="mb-3"><?php echo t('teaching_education'); ?></h6>
-                            <p class="mb-0">123 <?php echo t('vacancy'); ?></p>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <a class="cat-item rounded p-4" href="">
-                            <i class="fa fa-3x fa-drafting-compass text-primary mb-4"></i>
-                            <h6 class="mb-3"><?php echo t('design_creative'); ?></h6>
-                            <p class="mb-0">123 <?php echo t('vacancy'); ?></p>
-                        </a>
-                    </div>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
         </section>

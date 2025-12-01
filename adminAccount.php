@@ -116,27 +116,99 @@
 
                 <div style=" height: 100vh; margin-top:0px;" class="col-md-12">
                     <div>
-                        <h3 style="padding-bottom:30px;">Jobs Posted:</h3>
+                        <h3 style="padding-bottom:30px;">Pending Payment Confirmations:</h3>
+                    </div>
+                    <table class="table table-hover table-responsive table-striped" id='paymentTable'>
+                        <thead>
+                            <th>Post ID</th>
+                            <th>Employer</th>
+                            <th>Job Title</th>
+                            <th>Job Type</th>
+                            <th>Amount (Taka)</th>
+                            <th>Payment Status</th>
+                            <th>Transaction ID</th>
+                            <th>Actions</th>
+                        </thead>
+                        <tbody>
+
+                            <?php
+                            $sql = "SELECT jp.id as jp_id, p.id as post_id, p.name as job_title, jp.job_type, jp.amount, p.eid, 
+                                           e.name as employer_name, pay.transaction_id, jp.payment_status, jp.admin_status
+                                    FROM job_payments jp
+                                    JOIN payments pay ON jp.payment_id = pay.id
+                                    JOIN post p ON jp.pid = p.id
+                                    JOIN employer e ON jp.eid = e.id
+                                    WHERE jp.payment_status = 'confirmed' AND jp.admin_status = 'pending'
+                                    ORDER BY jp.created_date DESC";
+                            $result = $conn->query($sql);
+                            
+                            if ($result && $result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    $jp_id = $row['jp_id'];
+                                    $post_id = $row['post_id'];
+                                    $job_title = $row['job_title'];
+                                    $job_type = $row['job_type'] === 'blue_collar' ? 'Blue Collar' : 'White Collar';
+                                    $amount = $row['amount'];
+                                    $employer_name = $row['employer_name'];
+                                    $transaction_id = $row['transaction_id'];
+                                    $payment_status = $row['payment_status'];
+                            ?>
+                                    <tr>
+                                        <td><?php echo $post_id; ?></td>
+                                        <td><?php echo htmlspecialchars($employer_name); ?></td>
+                                        <td><?php echo htmlspecialchars($job_title); ?></td>
+                                        <td><span class="badge" style="background-color: <?php echo $row['job_type'] === 'blue_collar' ? '#ff6b6b' : '#4ecdc4'; ?>;"><?php echo $job_type; ?></span></td>
+                                        <td><?php echo $amount; ?> ৳</td>
+                                        <td><span class="badge" style="background-color: #28a745;">Confirmed</span></td>
+                                        <td><?php echo htmlspecialchars(substr($transaction_id, 0, 15)) . '...'; ?></td>
+                                        <td>
+                                            <a href="admin_confirm_payment.php?action=accept&jp_id=<?php echo $jp_id; ?>&post_id=<?php echo $post_id; ?>" 
+                                               class="btn btn-success btn-sm" title="Accept Payment">
+                                                <span class="glyphicon glyphicon-ok"></span> Accept
+                                            </a>
+                                            <a href="admin_confirm_payment.php?action=reject&jp_id=<?php echo $jp_id; ?>&post_id=<?php echo $post_id; ?>" 
+                                               class="btn btn-danger btn-sm" title="Reject Payment">
+                                                <span class="glyphicon glyphicon-remove"></span> Reject
+                                            </a>
+                                        </td>
+                                    </tr>
+                            <?php
+                                }
+                            } else {
+                                echo "<tr><td colspan='8' style='text-align: center; color: #999;'>No pending payments for confirmation</td></tr>";
+                            }
+                            ?>
+
+                        </tbody>
+                    </table>
+                    
+                    <hr style="margin-top: 50px; margin-bottom: 50px;">
+
+                    <div>
+                        <h3 style="padding-bottom:30px;">All Posted Jobs:</h3>
                     </div>
                     <table class="table table-hover table-responsive table-striped" id='postTable'>
                         <thead>
                             <th>Post Id</th>
+                            <th>Employer</th>
                             <th>Title</th>
                             <th>Description</th>
                             <th>Min Experience</th>
                             <th>Salary</th>
                             <th>Status</th>
+                            <th>Payment Status</th>
                             <th>Delete</th>
                         </thead>
                         <tbody>
 
                             <?php
-                            $sql = "select * from post";
+                            $sql = "SELECT p.*, e.name as employer_name FROM post p LEFT JOIN employer e ON p.eid = e.id ORDER BY p.id DESC";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
                                 // output data of each row
                                 while ($row = $result->fetch_assoc()) {
                                     $id = $row['id'];
+                                    $employer_name = $row['employer_name'];
                                     $title = $row['name'];
                                     $category = $row['category'];
                                     $minexp = $row['minexp'];
@@ -144,17 +216,25 @@
                                     $industry = $row['industry'];
                                     $desc = $row['desc'];
                                     $role = $row['role'];
-
                                     $status = $row['status'];
+                                    $payment_status = isset($row['payment_status']) ? $row['payment_status'] : 'unpaid';
 
                             ?>
                                     <tr>
                                         <td><?php echo $id; ?></td>
-                                        <td><?php echo $title; ?></td>
-                                        <td><?php echo $desc; ?></td>
+                                        <td><?php echo htmlspecialchars($employer_name); ?></td>
+                                        <td><?php echo htmlspecialchars($title); ?></td>
+                                        <td><?php echo htmlspecialchars(substr($desc, 0, 30)) . '...'; ?></td>
                                         <td><?php echo $minexp; ?></td>
                                         <td><?php echo $salary; ?></td>
                                         <td><?php echo $status; ?></td>
+                                        <td>
+                                            <?php if ($payment_status === 'confirmed'): ?>
+                                                <span class="badge" style="background-color: #28a745;">Paid</span>
+                                            <?php else: ?>
+                                                <span class="badge" style="background-color: #dc3545;">Unpaid</span>
+                                            <?php endif; ?>
+                                        </td>
                                         <td>
                                             <a href="deletePost.php?id=<?php echo $id; ?>"> <span class="glyphicon glyphicon-trash"></span></a>
                                         </td>
@@ -186,7 +266,14 @@
     <script src="js/signinModal.js"></script>
     <script>
         $(document).ready(function() {
-            $('#postTable').DataTable();
+            $('#paymentTable').DataTable({
+                "order": [[0, "desc"]],
+                "pageLength": 10
+            });
+            $('#postTable').DataTable({
+                "order": [[0, "desc"]],
+                "pageLength": 15
+            });
         });
     </script>
 </body>
