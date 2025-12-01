@@ -30,7 +30,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 
         $id = $_POST['id'];
         $name = $_POST['name'];
-        $category = $_POST['category'];
+        
+        // Determine category based on job type
+        if (isset($_POST['blueCollarCategory']) && $_POST['blueCollarCategory'] !== '') {
+            if ($_POST['blueCollarCategory'] === 'Other' && isset($_POST['customCategory'])) {
+                $category = $_POST['customCategory'];
+            } else {
+                $category = $_POST['blueCollarCategory'];
+            }
+        } elseif (isset($_POST['whitCollarCategory']) && $_POST['whitCollarCategory'] !== '') {
+            $category = $_POST['whitCollarCategory'];
+        } else {
+            $category = $_POST['category'];
+        }
+        
         $minexp = $_POST['minexp'];
         $salary = $_POST['salary'];
         $industry = $_POST['industry'];
@@ -178,8 +191,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 
                             <div class="form-group">
                                 <label for="category"><?php echo t('job_category_label'); ?></label>
-                                <select type="text" name="category" class="form-control" style="border-radius:0px; height: 50px;" placeholder="Category"> <?php include 'categoryOptions.php'; ?>
+                                <select type="text" name="category" id="categorySelect" class="form-control" style="border-radius:0px; height: 50px;" placeholder="Category" onchange="handleCategoryChange()">
+                                    <option value="">- Select Category -</option>
+                                    <option value="white_collar">White Collar Jobs</option>
+                                    <option value="blue_collar">Blue Collar Jobs</option>
                                 </select>
+                            </div>
+
+                            <!-- Blue Collar Jobs Section -->
+                            <div id="blueCollarSection" style="display:none;">
+                                <div class="form-group">
+                                    <label for="blueCollarCategory">Blue Collar Job Category</label>
+                                    <select type="text" name="blueCollarCategory" id="blueCollarCategory" class="form-control" style="border-radius:0px; height: 50px;" onchange="handleBlueCollarCategoryChange()">
+                                        <option value="">- Select Job Category -</option>
+                                        <option value="Caregiver/Nanny">Caregiver/Nanny</option>
+                                        <option value="Beautician/Salon">Beautician/Salon</option>
+                                        <option value="Sewing machine operator">Sewing machine operator</option>
+                                        <option value="Carpenter">Carpenter</option>
+                                        <option value="Plumber/Pipe fitting">Plumber/Pipe fitting</option>
+                                        <option value="Welder">Welder</option>
+                                        <option value="Boiler Operator">Boiler Operator</option>
+                                        <option value="Gym/Fitness Trainer">Gym/Fitness Trainer</option>
+                                        <option value="Interpreter">Interpreter</option>
+                                        <option value="Imam/Khatib/Muezzin">Imam/Khatib/Muezzin</option>
+                                        <option value="Mason/Construction worker">Mason/Construction worker</option>
+                                        <option value="Nurse">Nurse</option>
+                                        <option value="Deliveryman">Deliveryman</option>
+                                        <option value="Pathologist">Pathologist</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+
+                                <!-- Custom Category Input -->
+                                <div class="form-group" id="customCategoryDiv" style="display:none;">
+                                    <label for="customCategory">Enter Custom Category</label>
+                                    <input type="text" name="customCategory" id="customCategory" class="form-control" style="border-radius:0px; height: 50px;" placeholder="Enter your job category" />
+                                </div>
+                            </div>
+
+                            <!-- White Collar Jobs Section -->
+                            <div id="whitCollarSection" style="display:none;">
+                                <div class="form-group">
+                                    <label for="whitCollarCategory">White Collar Job Category</label>
+                                    <select type="text" name="whitCollarCategory" id="whitCollarCategory" class="form-control" style="border-radius:0px; height: 50px;">
+                                        <?php include 'categoryOptions.php'; ?>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -264,6 +321,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 
     <script src="js/tilt.jquery.min.js"></script>
     <script src="js/signinModal.js"></script>
-</body>
+    
+    <script>
+        function handleCategoryChange() {
+            const categorySelect = document.getElementById('categorySelect').value;
+            const blueCollarSection = document.getElementById('blueCollarSection');
+            const whitCollarSection = document.getElementById('whitCollarSection');
+            
+            if (categorySelect === 'blue_collar') {
+                blueCollarSection.style.display = 'block';
+                whitCollarSection.style.display = 'none';
+            } else if (categorySelect === 'white_collar') {
+                blueCollarSection.style.display = 'none';
+                whitCollarSection.style.display = 'block';
+            } else {
+                blueCollarSection.style.display = 'none';
+                whitCollarSection.style.display = 'none';
+            }
+        }
+        
+        function handleBlueCollarCategoryChange() {
+            const blueCollarSelect = document.getElementById('blueCollarCategory').value;
+            const customCategoryDiv = document.getElementById('customCategoryDiv');
+            
+            if (blueCollarSelect === 'Other') {
+                customCategoryDiv.style.display = 'block';
+            } else {
+                customCategoryDiv.style.display = 'none';
+            }
+        }
+    </script>
 
 </html>
