@@ -174,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 
             <h3 class="pc" style="padding-top: 120px; font-size: 90px; text-align: center;"><b><?php echo t('post_job_heading'); ?></b></h3>
 
-            <div class="container contact-form" style=" background-color: #cececeff; width: 700px;border-radius: 20px; height: 1100px; box-shadow: 0px 0px 25px #000000ff; 
+            <div class="container contact-form" style=" background-color: #e0e0e0ff; width: 700px;border-radius: 20px; height: 1100px; box-shadow: 0px 0px 25px #000000ff; 
                  align-items: center; justify-content: center; display: flex; padding: 0px; ">
                 <form method="post">
 
@@ -289,7 +289,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 
                             <div class="form-group bbb">
 
-                                <button type="submit" name="submitPost" class="btn" style="background-color: #001219; color: #ffffffff;
+                                <button type="submit" name="submitPost" class="btn" style="background-color: #4352d8ff; color: #ffffffff;
                             box-shadow: none; border-radius: 0px; height: 50px; width: 500px;"> <b> <?php echo t('post_submit'); ?> </b> </button>
 
                                 <!--display message-->

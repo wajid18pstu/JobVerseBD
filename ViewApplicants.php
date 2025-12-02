@@ -73,7 +73,7 @@
 
     ?>
     <!-- Main Container -->
-    <div class="container-fluid" style="background-color: #e0e0e0ff; padding-left: 50px; padding-right: 50px;">
+    <div class="container-fluid" style="background-color: #ffffffff; padding-left: 50px; padding-right: 50px;">
         <?php
         include 'connect.php';
 

@@ -76,7 +76,7 @@
 
     ?>
     <!-- Main Container -->
-    <div class="container-fluid" style="background-color: #d6d6d6ff;">
+    <div class="container-fluid" style="background-color: #ffffffff;">
 
         <?php
         include 'connect.php';

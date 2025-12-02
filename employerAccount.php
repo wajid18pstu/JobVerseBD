@@ -75,7 +75,7 @@
     <!-- Main Container -->
 
 
-    <div class="container-fluid" style="background-color: #ecececff; padding-right: 50px; padding-left: 50px;">
+    <div class="container-fluid" style="background-color: #f3f3f3ff; padding-right: 50px; padding-left: 50px;">
         <?php
         include 'connect.php';
         if (!isset($conn) || !$conn || !($conn instanceof mysqli)) {
