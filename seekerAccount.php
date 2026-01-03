@@ -252,6 +252,58 @@
                         </div>
                     </div>
 
+                    <!-- Exam Section -->
+                    <div class="row" style="margin-top: 30px;">
+                        <div class="col-md-12">
+                            <div class="panel panel-default" style="padding-top: 20px;  padding-bottom: 500px; background: #fff; border-radius: 16px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                <h3 style="color: #333; margin-bottom: 20px;">📚 General Knowledge Exam</h3>
+                                <p style="color: #666; margin-bottom: 20px;">Test your knowledge about job search, interview tips, resume writing, and career planning with our comprehensive 100-mark exam.</p>
+                                
+                                <div class="row" style="margin-bottom: 20px;">
+                                    <div class="col-md-3" style="margin-bottom: 10px;">
+                                        <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; text-align: center;">
+                                            <p style="color: #666; margin-bottom: 5px; font-size: 14px;">Total Questions</p>
+                                            <h4 style="color: #007bff; margin: 0;">50</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="margin-bottom: 10px;">
+                                        <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; text-align: center;">
+                                            <p style="color: #666; margin-bottom: 5px; font-size: 14px;">Total Marks</p>
+                                            <h4 style="color: #007bff; margin: 0;">100</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="margin-bottom: 10px;">
+                                        <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; text-align: center;">
+                                            <p style="color: #666; margin-bottom: 5px; font-size: 14px;">Passing Marks</p>
+                                            <h4 style="color: #007bff; margin: 0;">50</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="margin-bottom: 10px;">
+                                        <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; text-align: center;">
+                                            <p style="color: #666; margin-bottom: 5px; font-size: 14px;">Duration</p>
+                                            <h4 style="color: #007bff; margin: 0;">60 min</h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="margin: 20px 0;">
+                                    <a href="examInstructions.php?exam_id=1" class="btn btn-primary btn-lg" style="width: 100%; padding: 15px; font-size: 16px; margin-bottom: 10px;">
+                                        🎯 Take Exam
+                                    </a>
+                                </div>
+
+                                <div id="examResults">
+                                    <div style="margin-top: 30px; border-top: 2px solid #ddd; padding-top: 20px;">
+                                        <h4 style="color: #333; margin-bottom: 15px;">📊 Your Exam Results</h4>
+                                        <div id="resultsContainer">
+                                            <p style="color: #666;">Loading exam results...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Professional Profile Section -->
                     <div class="row" style="margin-top: 30px;">
                         <div class="col-md-12">
@@ -308,6 +360,66 @@
 
     <script src="js/tilt.jquery.min.js"></script>
     <script src="js/signinModal.js"></script>
+    
+    <script>
+        // Fetch and display exam results
+        $(document).ready(function() {
+            $.ajax({
+                url: 'getExamResults.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success && response.results.length > 0) {
+                        var html = '<table class="table table-striped table-hover" style="margin-top: 15px;">';
+                        html += '<thead style="background-color: #f5f5f5;">';
+                        html += '<tr>';
+                        html += '<th>Exam Name</th>';
+                        html += '<th>Score</th>';
+                        html += '<th>Percentage</th>';
+                        html += '<th>Status</th>';
+                        html += '<th>Date Submitted</th>';
+                        html += '<th>Time Taken</th>';
+                        html += '</tr>';
+                        html += '</thead>';
+                        html += '<tbody>';
+                        
+                        response.results.forEach(function(result) {
+                            var statusBadgeClass = result.status === 'passed' ? 'badge-success' : (result.status === 'failed' ? 'badge-danger' : 'badge-warning');
+                            var statusBadge = '<span class="badge ' + statusBadgeClass + '" style="padding: 8px 12px; font-size: 12px;">' + result.status.toUpperCase() + '</span>';
+                            
+                            var submittedDate = new Date(result.submitted_at).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric'
+                            });
+                            
+                            var minutes = Math.floor(result.time_taken_seconds / 60);
+                            var seconds = result.time_taken_seconds % 60;
+                            var timeStr = minutes + 'm ' + seconds + 's';
+                            
+                            html += '<tr>';
+                            html += '<td><strong>' + result.exam_name + '</strong></td>';
+                            html += '<td><strong style="color: #007bff;">' + result.total_marks_obtained + ' / ' + result.total_marks_possible + '</strong></td>';
+                            html += '<td><strong>' + parseFloat(result.percentage).toFixed(2) + '%</strong></td>';
+                            html += '<td>' + statusBadge + '</td>';
+                            html += '<td>' + submittedDate + '</td>';
+                            html += '<td>' + timeStr + '</td>';
+                            html += '</tr>';
+                        });
+                        
+                        html += '</tbody>';
+                        html += '</table>';
+                        $('#resultsContainer').html(html);
+                    } else {
+                        $('#resultsContainer').html('<p style="color: #666;">No exam results yet. Take the exam to see your scores.</p>');
+                    }
+                },
+                error: function() {
+                    $('#resultsContainer').html('<p style="color: #999;">Failed to load exam results.</p>');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
                                 </form>

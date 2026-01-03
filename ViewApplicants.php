@@ -128,6 +128,7 @@
                             <th>Date Applied</th>
                             <th>Job Title</th>
                             <th>Applicant's Skills</th>
+                            <th>Exam Scores</th>
                             <th>Professional Profile</th>
                             <th>Application Status</th>
                             <th>Actions</th>
@@ -141,6 +142,8 @@
                                 . "(select linkedin_profile from seeker where id=j.sid)as linkedin_profile,"
                                 . "(select cv_file from seeker where id=j.sid)as cv_file,"
                                 . "(select certificates from seeker where id=j.sid)as certificates,"
+                                . "(select GROUP_CONCAT(CONCAT(e.exam_name, ':', er.total_marks_obtained, '/', er.total_marks_possible, ':', er.percentage, ':', er.status) SEPARATOR '|') "
+                                . "from exam_results er join exams e on er.exam_id = e.exam_id where er.seeker_id=j.sid ORDER BY er.submitted_at DESC) as exam_scores,"
                                 . "status from jobsapplied j where pid in (select id from post where eid=$eid);";
 
                             $appresult = $conn->query($sql);
@@ -158,6 +161,7 @@
                                     $skills = $row['skills'];
                                     $status = $row['status'];
                                     $resume = $row['resume'] ?? '';  // Set default empty string if not in query
+                                    $exam_scores = $row['exam_scores']; // Get exam scores
 
                             ?>
                                     <tr>
@@ -166,6 +170,48 @@
                                         <td><?php echo $date; ?></td>
                                         <td><?php echo $title; ?></td>
                                         <td><?php echo $skills; ?></td>
+                                        <td>
+                                            <?php 
+                                            if (!empty($exam_scores)) {
+                                                $unique_id = 'exam_' . $id . '_' . time();
+                                                echo "<div class='dropdown'>";
+                                                echo "<button class='btn btn-sm btn-info dropdown-toggle' type='button' data-toggle='dropdown' id='btn_" . $unique_id . "'>";
+                                                echo "📊 View Results<span class='caret'></span></button>";
+                                                echo "<ul class='dropdown-menu' aria-labelledby='btn_" . $unique_id . "' style='min-width: 280px;'>";
+                                                
+                                                $scores_array = explode('|', $exam_scores);
+                                                foreach ($scores_array as $score) {
+                                                    $score_details = explode(':', $score);
+                                                    if (count($score_details) === 4) {
+                                                        $exam_name = htmlspecialchars($score_details[0]);
+                                                        $marks = htmlspecialchars($score_details[1]);
+                                                        $percentage = htmlspecialchars($score_details[2]);
+                                                        $pass_status = htmlspecialchars($score_details[3]);
+                                                        
+                                                        $status_badge = $pass_status === 'passed' 
+                                                            ? '<span class="badge" style="background-color: #28a745; padding: 4px 8px; font-size: 11px;">PASSED</span>'
+                                                            : ($pass_status === 'failed'
+                                                                ? '<span class="badge" style="background-color: #dc3545; padding: 4px 8px; font-size: 11px;">FAILED</span>'
+                                                                : '<span class="badge" style="background-color: #ffc107; padding: 4px 8px; font-size: 11px;">INCOMPLETE</span>');
+                                                        
+                                                        echo "<li style='padding: 10px 15px; border-bottom: 1px solid #eee;'>";
+                                                        echo "<div style='margin-bottom: 0;'>";
+                                                        echo "<strong style='color: #333; font-size: 13px;'>" . $exam_name . "</strong><br>";
+                                                        echo "<small style='color: #666;'>Score: <strong>" . $marks . "</strong></small><br>";
+                                                        echo "<small style='color: #666;'>Percentage: <strong>" . $percentage . "%</strong></small><br>";
+                                                        echo "<small>" . $status_badge . "</small>";
+                                                        echo "</div>";
+                                                        echo "</li>";
+                                                    }
+                                                }
+                                                
+                                                echo "</ul>";
+                                                echo "</div>";
+                                            } else {
+                                                echo "<span style='color: #999;'>No exams taken</span>";
+                                            }
+                                            ?>
+                                        </td>
                                         <td>
                                             <?php 
                                             $linkedin = $row['linkedin_profile'];
