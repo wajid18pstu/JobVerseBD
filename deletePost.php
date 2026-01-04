@@ -2,7 +2,12 @@
 
 // Allow both admin and employers to delete posts
 // Admin can delete any post, employer can only delete their own
-$isAdmin = isset($_SESSION['adminid']);
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+$isAdmin = isset($_SESSION['aid']);
 
 if (!$isAdmin) {
     include 'authorizeEmployer.php';
@@ -24,16 +29,21 @@ if(isset($_GET['id'])){
     
     // First, delete related job_payments records
     $deletePaymentsSql = "DELETE FROM job_payments WHERE pid = $id";
-    $conn->query($deletePaymentsSql);
+    if (!$conn->query($deletePaymentsSql)) {
+        echo "Error deleting related payments: " . $conn->error;
+        exit;
+    }
     
     // Then delete the post
     $sql = "DELETE FROM post WHERE id = $id";
     
     if ($conn->query($sql) === TRUE) {
         if ($isAdmin) {
-            header('location: adminAccount.php');
+            header('Location: adminAccount.php');
+            exit;
         } else {
-            header('location: employerAccount.php');
+            header('Location: employerAccount.php');
+            exit;
         }
     } else {
         echo "Error Deleting Post: " . $conn->error;

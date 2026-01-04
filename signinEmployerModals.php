@@ -219,4 +219,50 @@ require_once __DIR__ . '/lang.php';
     </div>
 </div>
   </div> 
-  <script src="js/registerUser.js"></script>	
+  
+<!-- OTP Verification Modal -->
+<div class="modal fade" id="otpVerificationModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-image: url(img/1bck.jpg);">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="otpModalLabel" style="color:white;">Email Verification</h4>
+      </div>
+      <div class="modal-body" style="color:white;">
+        <p>An OTP has been sent to:</p>
+        <p style="color: #e9c46a; font-weight: bold;" id="otpEmail"></p>
+        
+        <p style="margin-top: 20px;">Enter the 6-digit OTP:</p>
+        <input type="text" id="otpInput" class="form-control" maxlength="6" placeholder="000000" style="font-size: 24px; text-align: center; letter-spacing: 10px; font-weight: bold;">
+        
+        <div id="otpMessage" style="margin-top: 15px; display: none;"></div>
+        
+        <div style="margin-top: 20px; text-align: center;">
+          <p style="color: #999; font-size: 14px;">Time remaining:</p>
+          <p style="font-size: 24px; color: #e9c46a; font-weight: bold;">
+            <span id="timerMinutes">2</span>:<span id="timerSeconds">00</span>
+          </p>
+        </div>
+
+        <div style="margin-top: 20px; text-align: center;">
+          <button type="button" class="btn btn-primary" id="verifyOtpBtn" style="background-color: #e9c46a; color: #1d3557; border: none; width: 100%; padding: 10px;">
+            Verify OTP
+          </button>
+        </div>
+
+        <div style="margin-top: 15px; text-align: center;">
+          <p style="color: #999; font-size: 13px;">Didn't receive OTP?</p>
+          <button type="button" class="btn btn-link" id="resendOtpBtn" style="color: #e9c46a; text-decoration: none; padding: 0;">
+            Resend OTP
+          </button>
+          <span id="resendMessage" style="display: none; color: #999; font-size: 13px; margin-left: 5px;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="js/registerUser.js"></script>
+  <script src="js/otpVerification.js"></script>

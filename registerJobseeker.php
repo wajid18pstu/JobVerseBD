@@ -5,81 +5,81 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 require_once __DIR__ . '/lang.php';
 
+header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $name = $_POST["name"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $qlf = $_POST["qlf"];
-    $dob = $_POST["dob"];
-    $skills = $_POST["skills"];
+    $name = isset($_POST["name"]) ? $_POST["name"] : "";
+    $email = isset($_POST["email"]) ? $_POST["email"] : "";
+    $password = isset($_POST["password"]) ? $_POST["password"] : "";
+    $qlf = isset($_POST["qlf"]) ? $_POST["qlf"] : "";
+    $dob = isset($_POST["dob"]) ? $_POST["dob"] : "";
+    $skills = isset($_POST["skills"]) ? $_POST["skills"] : "";
+    $verifiedOtp = isset($_POST["verified_otp"]) ? $_POST["verified_otp"] : "no";
 
+    // Validate required fields
+    if (empty($name) || empty($email) || empty($password) || empty($qlf) || empty($dob) || empty($skills)) {
+        echo json_encode(['status' => 'error', 'message' => 'All fields are required']);
+        $conn->close();
+        exit();
+    }
 
+    // Check if OTP was verified
+    if ($verifiedOtp !== "yes") {
+        echo json_encode(['status' => 'error', 'message' => 'Email verification required. Please verify with OTP']);
+        $conn->close();
+        exit();
+    }
 
-    $sql = "INSERT INTO seeker (name,email,password,qualification,dob,skills,resume)
-VALUES ('$name', '$email', '$password','$qlf', '$dob', '$skills','$fileName')";
+    // Verify that the OTP was indeed verified in database
+    $checkOtpQuery = "SELECT is_verified FROM otp_verification 
+                      WHERE email = '$email' 
+                      AND user_type = 'seeker' 
+                      AND is_verified = 1 
+                      ORDER BY created_at DESC 
+                      LIMIT 1";
+
+    $otpResult = $conn->query($checkOtpQuery);
+    
+    if (!$otpResult || $otpResult->num_rows == 0) {
+        echo json_encode(['status' => 'error', 'message' => 'Invalid verification. Please verify your email again']);
+        $conn->close();
+        exit();
+    }
+
+    // Check if email already exists
+    $checkEmail = "SELECT email FROM seeker WHERE email = '$email'";
+    $emailResult = $conn->query($checkEmail);
+    
+    if ($emailResult && $emailResult->num_rows > 0) {
+        echo json_encode(['status' => 'error', 'message' => 'Email already registered']);
+        $conn->close();
+        exit();
+    }
+
+    // Hash password for security
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+    $sql = "INSERT INTO seeker (name, email, password, qualification, dob, skills, resume)
+    VALUES ('$name', '$email', '$hashedPassword', '$qlf', '$dob', '$skills', '')";
 
     if ($conn->query($sql) === TRUE) {
-?>
+        // Clear OTP record after successful registration
+        $clearOtpQuery = "DELETE FROM otp_verification WHERE email = '$email' AND user_type = 'seeker'";
+        $conn->query($clearOtpQuery);
 
-        <html>
-
-        <head>
-
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link rel="icon" href="img/jobsConnect.svg" type="image/x-icon">
-
-            <title> Jobseeker Registered</title>
-
-            <link href="css/simpleGridTemplate.css" rel="stylesheet" type="text/css">
-            <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
-            <link href="css/Animate.css" rel="stylesheet" type="text/css">
-            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        </head>
-
-        <body style="background: url(img/rgback.jpg);">
-            <div>
-
-            </div>
-
-            <!-- Trigger the modal with a button -->
-            <button id="modalBtn" type="button" style="display:none" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-            <!-- Modal -->
-            <div id="myModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-
-                            <h3><?php echo t('jobseeker_registered_ok'); ?></h3>
-                            <br>
-                            <a href="index.php?msg=login"><?php echo t('login_link_text'); ?></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <script>
-                $('#modalBtn').trigger("click");
-            </script>
-        </body>
-
-        </html>
-
-<?php
+        echo json_encode([
+            'status' => 'success',
+            'message' => 'Registration successful! Please log in with your credentials.',
+            'redirect' => 'index.php?msg=login'
+        ]);
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo json_encode(['status' => 'error', 'message' => 'Registration failed: ' . $conn->error]);
     }
 
     $conn->close();
+    exit();
 } else {
-    header("location : index.php");
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
+    exit();
 }
