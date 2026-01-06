@@ -255,49 +255,184 @@
                     <!-- Exam Section -->
                     <div class="row" style="margin-top: 30px;">
                         <div class="col-md-12">
-                            <div class="panel panel-default" style="padding-top: 20px;  padding-bottom: 500px; background: #fff; border-radius: 16px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                                <h3 style="color: #333; margin-bottom: 20px;">📚 General Knowledge Exam</h3>
-                                <p style="color: #666; margin-bottom: 20px;">Test your knowledge about job search, interview tips, resume writing, and career planning with our comprehensive 100-mark exam.</p>
+                            <div class="panel panel-default" style="padding-top: 20px; padding-bottom: 3500px; background: #fff; border-radius: 16px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                <h2 style="color: #333; margin-bottom: 10px;">🎓 Professional Certification Exams</h2>
+                                <p style="color: #666; margin-bottom: 30px; font-size: 16px;">Choose a category that matches your career field and prepare for specialized assessments.</p>
                                 
-                                <div class="row" style="margin-bottom: 20px;">
-                                    <div class="col-md-3" style="margin-bottom: 10px;">
-                                        <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; text-align: center;">
-                                            <p style="color: #666; margin-bottom: 5px; font-size: 14px;">Total Questions</p>
-                                            <h4 style="color: #007bff; margin: 0;">50</h4>
-                                        </div>
+                                <!-- Category 1: IT, Engineering, Technical & Software -->
+                                <div style="margin-bottom: 30px; padding: 20px; background: #f0f8ff; border-left: 5px solid #0066cc; border-radius: 8px;">
+                                    <h3 style="color: #0066cc; margin-top: 0; margin-bottom: 15px;">💻 IT, Engineering, Technical & Software Sector</h3>
+                                    <div style="margin-bottom: 15px;">
+                                        <p style="color: #333; font-weight: bold; margin-bottom: 10px;">📋 Exam Format:</p>
+                                        <p style="color: #666;">MCQ + Short Questions + Coding Test</p>
                                     </div>
-                                    <div class="col-md-3" style="margin-bottom: 10px;">
-                                        <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; text-align: center;">
-                                            <p style="color: #666; margin-bottom: 5px; font-size: 14px;">Total Marks</p>
-                                            <h4 style="color: #007bff; margin: 0;">100</h4>
-                                        </div>
+                                    <div style="margin-bottom: 15px;">
+                                        <p style="color: #333; font-weight: bold; margin-bottom: 10px;">📚 Subjects May Include:</p>
+                                        <ul style="color: #666; margin-bottom: 0;">
+                                            <li>Programming (C, C++, Java, Python, PHP)</li>
+                                            <li>Data Structures & Algorithms</li>
+                                            <li>Database (SQL, DBMS)</li>
+                                            <li>Computer Networks</li>
+                                            <li>Operating Systems</li>
+                                            <li>Software Engineering</li>
+                                            <li>Web Technologies</li>
+                                            <li>ERP basics (SAP/Oracle)</li>
+                                            <li>Telecom & Networking basics</li>
+                                            <li>Electronics (for VLSI, Hardware)</li>
+                                            <li>Mathematics, Physics</li>
+                                            <li>Electrical / Mechanical basics</li>
+                                            <li>Maintenance & Site Management</li>
+                                        </ul>
                                     </div>
-                                    <div class="col-md-3" style="margin-bottom: 10px;">
-                                        <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; text-align: center;">
-                                            <p style="color: #666; margin-bottom: 5px; font-size: 14px;">Passing Marks</p>
-                                            <h4 style="color: #007bff; margin: 0;">50</h4>
-                                        </div>
+                                    <div style="margin-bottom: 15px;">
+                                        <p style="color: #333; font-weight: bold; margin-bottom: 10px;">🔧 Coding Test Questions:</p>
+                                        <ul style="color: #666; margin-bottom: 0;">
+                                            <li>Write a SQL query</li>
+                                            <li>Debug a code snippet</li>
+                                            <li>Network troubleshooting scenario</li>
+                                            <li>Software testing case study</li>
+                                            <li>ERP workflow questions</li>
+                                        </ul>
                                     </div>
-                                    <div class="col-md-3" style="margin-bottom: 10px;">
-                                        <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; text-align: center;">
-                                            <p style="color: #666; margin-bottom: 5px; font-size: 14px;">Duration</p>
-                                            <h4 style="color: #007bff; margin: 0;">60 min</h4>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div style="margin: 20px 0;">
-                                    <a href="examInstructions.php?exam_id=1" class="btn btn-primary btn-lg" style="width: 100%; padding: 15px; font-size: 16px; margin-bottom: 10px;">
-                                        🎯 Take Exam
+                                    <a href="examInstructions.php?exam_id=1" class="btn btn-info" style="padding: 12px 25px; font-size: 15px;">
+                                        🎯 Start IT & Tech Exam
                                     </a>
                                 </div>
 
-                                <div id="examResults">
-                                    <div style="margin-top: 30px; border-top: 2px solid #ddd; padding-top: 20px;">
-                                        <h4 style="color: #333; margin-bottom: 15px;">📊 Your Exam Results</h4>
-                                        <div id="resultsContainer">
-                                            <p style="color: #666;">Loading exam results...</p>
-                                        </div>
+                                <!-- Category 2: Banking, Finance & Corporate -->
+                                <div style="margin-bottom: 30px; padding: 20px; background: #f0fff0; border-left: 5px solid #009900; border-radius: 8px;">
+                                    <h3 style="color: #009900; margin-top: 0; margin-bottom: 15px;">🏦 Banking, Finance & Corporate Sector</h3>
+                                    <div style="margin-bottom: 15px;">
+                                        <p style="color: #333; font-weight: bold; margin-bottom: 10px;">📋 Exam Format:</p>
+                                        <p style="color: #666;">MCQ</p>
+                                    </div>
+                                    <div style="margin-bottom: 15px;">
+                                        <p style="color: #333; font-weight: bold; margin-bottom: 10px;">📚 Subjects Include:</p>
+                                        <ul style="color: #666; margin-bottom: 0;">
+                                            <li>General Banking</li>
+                                            <li>Accounting Principles</li>
+                                            <li>Financial Management</li>
+                                            <li>Economics (Basic)</li>
+                                            <li>Bangladesh Banking System</li>
+                                            <li>Corporate Governance</li>
+                                            <li>HR Management</li>
+                                            <li>Office Management</li>
+                                            <li>Corporate Planning</li>
+                                            <li>Business Communication</li>
+                                            <li>Organizational Behavior</li>
+                                            <li>Quantitative Aptitude</li>
+                                            <li>Data Interpretation</li>
+                                            <li>Analytical Reasoning</li>
+                                            <li>English Grammar & Comprehension</li>
+                                            <li>MS Word, Excel, PowerPoint</li>
+                                            <li>Email & Office Etiquette</li>
+                                            <li>Basic IT Knowledge</li>
+                                        </ul>
+                                    </div>
+                                    <a href="examInstructions.php?exam_id=2" class="btn btn-success" style="padding: 12px 25px; font-size: 15px;">
+                                        🎯 Start Finance & Banking Exam
+                                    </a>
+                                </div>
+
+                                <!-- Category 3: Education & Training -->
+                                <div style="margin-bottom: 30px; padding: 20px; background: #fffef0; border-left: 5px solid #ff9900; border-radius: 8px;">
+                                    <h3 style="color: #ff9900; margin-top: 0; margin-bottom: 15px;">📖 Education & Training Sector</h3>
+                                    <div style="margin-bottom: 15px;">
+                                        <p style="color: #333; font-weight: bold; margin-bottom: 10px;">📋 Exam Format:</p>
+                                        <p style="color: #666;">MCQ + Short Answer</p>
+                                    </div>
+                                    <div style="margin-bottom: 15px;">
+                                        <p style="color: #333; font-weight: bold; margin-bottom: 10px;">📚 Based On:</p>
+                                        <ul style="color: #666; margin-bottom: 0;">
+                                            <li>School-level subjects (Bangla, English, Math, Science)</li>
+                                            <li>HSC / Degree-level subjects</li>
+                                            <li>Islamic Studies / ICT</li>
+                                            <li>Teaching Methodology</li>
+                                            <li>Classroom Management</li>
+                                            <li>Child Psychology</li>
+                                            <li>Assessment & Evaluation</li>
+                                            <li>Curriculum Knowledge (NCTB)</li>
+                                            <li>Bangladesh Affairs</li>
+                                            <li>Education Policy</li>
+                                            <li>English Language Skills</li>
+                                        </ul>
+                                    </div>
+                                    <a href="examInstructions.php?exam_id=3" class="btn btn-warning" style="padding: 12px 25px; font-size: 15px; color: #fff;">
+                                        🎯 Start Education & Training Exam
+                                    </a>
+                                </div>
+
+                                <!-- Category 4: General Jobs -->
+                                <div style="margin-bottom: 30px; padding: 20px; background: #fff0f6; border-left: 5px solid #cc0066; border-radius: 8px;">
+                                    <h3 style="color: #cc0066; margin-top: 0; margin-bottom: 15px;">🌐 General Jobs Category</h3>
+                                    <p style="color: #666; font-size: 14px; margin-bottom: 15px;"><em>Sales, Marketing, Security, Hotel, Logistics, etc.</em></p>
+                                    <div style="margin-bottom: 15px;">
+                                        <p style="color: #333; font-weight: bold; margin-bottom: 10px;">📋 Exam Format:</p>
+                                        <p style="color: #666;">MCQ</p>
+                                    </div>
+                                    <div style="margin-bottom: 15px;">
+                                        <p style="color: #333; font-weight: bold; margin-bottom: 10px;">📚 Subjects Include:</p>
+                                        <ul style="color: #666; margin-bottom: 0;">
+                                            <li>Bangladesh & World Affairs</li>
+                                            <li>Current Affairs</li>
+                                            <li>Basic ICT</li>
+                                            <li>Everyday Science</li>
+                                            <li>Logical Reasoning</li>
+                                            <li>Numerical Ability</li>
+                                            <li>Situation-based Questions</li>
+                                            <li>Sales Scenario Questions</li>
+                                            <li>Customer Handling MCQs</li>
+                                            <li>Safety & Security Rules</li>
+                                            <li>Hospitality Etiquette</li>
+                                            <li>Spoken English Basics</li>
+                                            <li>Email Writing</li>
+                                            <li>Comprehension</li>
+                                        </ul>
+                                    </div>
+                                    <a href="examInstructions.php?exam_id=4" class="btn btn-danger" style="padding: 12px 25px; font-size: 15px;">
+                                        🎯 Start General Jobs Exam
+                                    </a>
+                                </div>
+
+                                <!-- Category 5: Coding Challenge -->
+                                <div style="margin-bottom: 30px; padding: 20px; background: #f5f0ff; border-left: 5px solid #6f42c1; border-radius: 8px;">
+                                    <h3 style="color: #6f42c1; margin-top: 0; margin-bottom: 15px;">⚡ Coding Challenge Exam (Advanced)</h3>
+                                    <p style="color: #666; font-size: 14px; margin-bottom: 15px;"><em>For IT, Engineering & Technical roles</em></p>
+                                    <div style="margin-bottom: 15px;">
+                                        <p style="color: #333; font-weight: bold; margin-bottom: 10px;">📋 Exam Format:</p>
+                                        <p style="color: #666;">Practical Coding Problems (Like Codeforces)</p>
+                                    </div>
+                                    <div style="margin-bottom: 15px;">
+                                        <p style="color: #333; font-weight: bold; margin-bottom: 10px;">📝 What You'll Do:</p>
+                                        <ul style="color: #666; margin-bottom: 0;">
+                                            <li>Solve 5 real-world programming problems</li>
+                                            <li>Write code in Python, C++, or Java</li>
+                                            <li>Test your code against multiple test cases</li>
+                                            <li>Get instant feedback on correctness</li>
+                                            <li>Total Duration: 3 hours</li>
+                                            <li>Total Points: 100 (varying difficulty levels)</li>
+                                        </ul>
+                                    </div>
+                                    <div style="margin-bottom: 15px;">
+                                        <p style="color: #333; font-weight: bold; margin-bottom: 10px;">🎯 Problem Categories:</p>
+                                        <ul style="color: #666; margin-bottom: 0;">
+                                            <li>Basic String/Array Manipulation</li>
+                                            <li>Mathematical Algorithms</li>
+                                            <li>Data Structure Operations</li>
+                                            <li>Logical Problem Solving</li>
+                                            <li>Complex Algorithm Implementation</li>
+                                        </ul>
+                                    </div>
+                                    <a href="codingExamTimed.php" class="btn btn-primary" style="padding: 12px 25px; font-size: 15px; background-color: #6f42c1; border-color: #6f42c1;">
+                                        💻 Start Coding Challenge Exam
+                                    </a>
+                                </div>
+
+                                <!-- Exam Results Section -->
+                                <div id="examResults" style="margin-top: 40px; border-top: 2px solid #ddd; padding-top: 20px;">
+                                    <h4 style="color: #333; margin-bottom: 15px;">📊 Your Exam Results</h4>
+                                    <div id="resultsContainer">
+                                        <p style="color: #666;">Loading exam results...</p>
                                     </div>
                                 </div>
                             </div>
@@ -403,7 +538,21 @@
                             html += '<td><strong>' + parseFloat(result.percentage).toFixed(2) + '%</strong></td>';
                             html += '<td>' + statusBadge + '</td>';
                             html += '<td>' + submittedDate + '</td>';
-                            html += '<td>' + timeStr + '</td>';
+                            if (response.results[i].is_coding) {
+                                // For coding exams, show problems solved
+                                var codingTimeStr = '';
+                                if (response.results[i].time_taken_seconds) {
+                                    var hours = Math.floor(response.results[i].time_taken_seconds / 3600);
+                                    var minutes = Math.floor((response.results[i].time_taken_seconds % 3600) / 60);
+                                    var seconds = response.results[i].time_taken_seconds % 60;
+                                    codingTimeStr = (hours > 0 ? hours + 'h ' : '') + minutes + 'm ' + seconds + 's';
+                                }
+                                html += '<td>' + codingTimeStr + '</td>';
+                                html += '</tr><tr style="font-size: 12px; color: #999;">';
+                                html += '<td colspan="6"><small>Problems Solved: ' + response.results[i].problems_solved + ' / ' + response.results[i].total_problems + '</small></td>';
+                            } else {
+                                html += '<td>' + timeStr + '</td>';
+                            }
                             html += '</tr>';
                         });
                         

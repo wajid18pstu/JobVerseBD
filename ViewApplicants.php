@@ -144,6 +144,8 @@
                                 . "(select certificates from seeker where id=j.sid)as certificates,"
                                 . "(select GROUP_CONCAT(CONCAT(e.exam_name, ':', er.total_marks_obtained, '/', er.total_marks_possible, ':', er.percentage, ':', er.status) SEPARATOR '|') "
                                 . "from exam_results er join exams e on er.exam_id = e.exam_id where er.seeker_id=j.sid ORDER BY er.submitted_at DESC) as exam_scores,"
+                                . "(select GROUP_CONCAT(CONCAT('Coding Challenge Exam', ':', cer.total_score, '/', cer.max_score, ':', ROUND((cer.total_score/cer.max_score)*100, 2), ':', IF(cer.total_score >= 30, 'passed', 'failed')) SEPARATOR '|') "
+                                . "from coding_exam_results cer where cer.seeker_id=j.sid ORDER BY cer.completed_at DESC LIMIT 1) as coding_scores,"
                                 . "status from jobsapplied j where pid in (select id from post where eid=$eid);";
 
                             $appresult = $conn->query($sql);
@@ -162,6 +164,7 @@
                                     $status = $row['status'];
                                     $resume = $row['resume'] ?? '';  // Set default empty string if not in query
                                     $exam_scores = $row['exam_scores']; // Get exam scores
+                                    $coding_scores = $row['coding_scores']; // Get coding exam scores
 
                             ?>
                                     <tr>
@@ -172,36 +175,66 @@
                                         <td><?php echo $skills; ?></td>
                                         <td>
                                             <?php 
-                                            if (!empty($exam_scores)) {
+                                            if (!empty($exam_scores) || !empty($coding_scores)) {
                                                 $unique_id = 'exam_' . $id . '_' . time();
                                                 echo "<div class='dropdown'>";
                                                 echo "<button class='btn btn-sm btn-info dropdown-toggle' type='button' data-toggle='dropdown' id='btn_" . $unique_id . "'>";
                                                 echo "📊 View Results<span class='caret'></span></button>";
                                                 echo "<ul class='dropdown-menu' aria-labelledby='btn_" . $unique_id . "' style='min-width: 280px;'>";
                                                 
-                                                $scores_array = explode('|', $exam_scores);
-                                                foreach ($scores_array as $score) {
-                                                    $score_details = explode(':', $score);
-                                                    if (count($score_details) === 4) {
-                                                        $exam_name = htmlspecialchars($score_details[0]);
-                                                        $marks = htmlspecialchars($score_details[1]);
-                                                        $percentage = htmlspecialchars($score_details[2]);
-                                                        $pass_status = htmlspecialchars($score_details[3]);
-                                                        
-                                                        $status_badge = $pass_status === 'passed' 
-                                                            ? '<span class="badge" style="background-color: #28a745; padding: 4px 8px; font-size: 11px;">PASSED</span>'
-                                                            : ($pass_status === 'failed'
-                                                                ? '<span class="badge" style="background-color: #dc3545; padding: 4px 8px; font-size: 11px;">FAILED</span>'
-                                                                : '<span class="badge" style="background-color: #ffc107; padding: 4px 8px; font-size: 11px;">INCOMPLETE</span>');
-                                                        
-                                                        echo "<li style='padding: 10px 15px; border-bottom: 1px solid #eee;'>";
-                                                        echo "<div style='margin-bottom: 0;'>";
-                                                        echo "<strong style='color: #333; font-size: 13px;'>" . $exam_name . "</strong><br>";
-                                                        echo "<small style='color: #666;'>Score: <strong>" . $marks . "</strong></small><br>";
-                                                        echo "<small style='color: #666;'>Percentage: <strong>" . $percentage . "%</strong></small><br>";
-                                                        echo "<small>" . $status_badge . "</small>";
-                                                        echo "</div>";
-                                                        echo "</li>";
+                                                // Display traditional exam scores
+                                                if (!empty($exam_scores)) {
+                                                    $scores_array = explode('|', $exam_scores);
+                                                    foreach ($scores_array as $score) {
+                                                        $score_details = explode(':', $score);
+                                                        if (count($score_details) === 4) {
+                                                            $exam_name = htmlspecialchars($score_details[0]);
+                                                            $marks = htmlspecialchars($score_details[1]);
+                                                            $percentage = htmlspecialchars($score_details[2]);
+                                                            $pass_status = htmlspecialchars($score_details[3]);
+                                                            
+                                                            $status_badge = $pass_status === 'passed' 
+                                                                ? '<span class="badge" style="background-color: #28a745; padding: 4px 8px; font-size: 11px;">PASSED</span>'
+                                                                : ($pass_status === 'failed'
+                                                                    ? '<span class="badge" style="background-color: #dc3545; padding: 4px 8px; font-size: 11px;">FAILED</span>'
+                                                                    : '<span class="badge" style="background-color: #ffc107; padding: 4px 8px; font-size: 11px;">INCOMPLETE</span>');
+                                                            
+                                                            echo "<li style='padding: 10px 15px; border-bottom: 1px solid #eee;'>";
+                                                            echo "<div style='margin-bottom: 0;'>";
+                                                            echo "<strong style='color: #333; font-size: 13px;'>" . $exam_name . "</strong><br>";
+                                                            echo "<small style='color: #666;'>Score: <strong>" . $marks . "</strong></small><br>";
+                                                            echo "<small style='color: #666;'>Percentage: <strong>" . $percentage . "%</strong></small><br>";
+                                                            echo "<small>" . $status_badge . "</small>";
+                                                            echo "</div>";
+                                                            echo "</li>";
+                                                        }
+                                                    }
+                                                }
+                                                
+                                                // Display coding exam scores
+                                                if (!empty($coding_scores)) {
+                                                    $scores_array = explode('|', $coding_scores);
+                                                    foreach ($scores_array as $score) {
+                                                        $score_details = explode(':', $score);
+                                                        if (count($score_details) === 4) {
+                                                            $exam_name = htmlspecialchars($score_details[0]);
+                                                            $marks = htmlspecialchars($score_details[1]);
+                                                            $percentage = htmlspecialchars($score_details[2]);
+                                                            $pass_status = htmlspecialchars($score_details[3]);
+                                                            
+                                                            $status_badge = $pass_status === 'passed' 
+                                                                ? '<span class="badge" style="background-color: #28a745; padding: 4px 8px; font-size: 11px;">PASSED</span>'
+                                                                : '<span class="badge" style="background-color: #dc3545; padding: 4px 8px; font-size: 11px;">FAILED</span>';
+                                                            
+                                                            echo "<li style='padding: 10px 15px; border-bottom: 1px solid #eee; background-color: #f0f7ff;'>";
+                                                            echo "<div style='margin-bottom: 0;'>";
+                                                            echo "<strong style='color: #667eea; font-size: 13px;'>💻 " . $exam_name . "</strong><br>";
+                                                            echo "<small style='color: #666;'>Score: <strong>" . $marks . "</strong></small><br>";
+                                                            echo "<small style='color: #666;'>Percentage: <strong>" . $percentage . "%</strong></small><br>";
+                                                            echo "<small>" . $status_badge . "</small>";
+                                                            echo "</div>";
+                                                            echo "</li>";
+                                                        }
                                                     }
                                                 }
                                                 

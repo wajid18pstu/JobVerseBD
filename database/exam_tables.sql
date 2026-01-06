@@ -5,6 +5,8 @@ CREATE TABLE IF NOT EXISTS `exams` (
   `exam_id` int(11) NOT NULL AUTO_INCREMENT,
   `exam_name` varchar(255) NOT NULL,
   `description` text,
+  `exam_category` varchar(50) DEFAULT NULL COMMENT 'it, banking, education, general',
+  `exam_type` varchar(100) DEFAULT NULL COMMENT 'MCQ, MCQ+Short, MCQ+Coding, etc.',
   `total_questions` int(11) NOT NULL DEFAULT 50,
   `total_marks` int(11) NOT NULL DEFAULT 100,
   `passing_marks` int(11) NOT NULL DEFAULT 50,
@@ -26,7 +28,8 @@ CREATE TABLE IF NOT EXISTS `exam_questions` (
   `option_d` varchar(255) NOT NULL,
   `correct_option` char(1) NOT NULL COMMENT 'A, B, C, or D',
   `marks` int(11) NOT NULL DEFAULT 2,
-  `category` varchar(100) DEFAULT NULL COMMENT 'Job search, Resume, Interview, Workplace, etc.',
+  `category` varchar(100) DEFAULT NULL COMMENT 'Programming, Database, Network, etc.',
+  `question_type` varchar(50) DEFAULT 'mcq' COMMENT 'mcq, short_answer, coding',
   `question_order` int(11) DEFAULT NULL,
   `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`question_id`),
@@ -67,6 +70,10 @@ CREATE TABLE IF NOT EXISTS `exam_answers` (
   FOREIGN KEY (`question_id`) REFERENCES `exam_questions`(`question_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Insert default exam
-INSERT INTO `exams` (`exam_name`, `description`, `total_questions`, `total_marks`, `passing_marks`, `duration_minutes`, `is_active`) 
-VALUES ('General Knowledge - Jobs & Career', 'Test your knowledge about job search, interview tips, resume writing, workplace ethics, and career planning', 50, 100, 50, 60, 1);
+-- Insert 4 different exam categories
+INSERT INTO `exams` (`exam_id`, `exam_name`, `description`, `exam_category`, `exam_type`, `total_questions`, `total_marks`, `passing_marks`, `duration_minutes`, `is_active`) 
+VALUES 
+(1, 'IT, Engineering, Technical & Software Sector', 'Comprehensive exam covering Programming, Data Structures, Databases, Networks, and Coding Problems', 'it', 'MCQ+Short Questions+Coding Test', 40, 100, 50, 90, 1),
+(2, 'Banking, Finance & Corporate Sector', 'Exam on General Banking, Accounting, Financial Management, and Corporate Knowledge', 'banking', 'MCQ', 50, 100, 50, 60, 1),
+(3, 'Education & Training Sector', 'Assessment on School Subjects, Teaching Methodology, Psychology, and Education Policy', 'education', 'MCQ+Short Answer', 45, 100, 50, 75, 1),
+(4, 'General Jobs Category', 'General knowledge exam for Sales, Marketing, Security, Hotel, Logistics and similar roles', 'general', 'MCQ', 50, 100, 50, 60, 1);
