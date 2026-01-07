@@ -208,8 +208,8 @@ $stmt->close();
             padding: 0 20px;
         }
         .exam-header {
-            background: white;
-            padding: 20px;
+            background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);;
+            padding: 10px;
             border-radius: 10px;
             margin-bottom: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -218,8 +218,9 @@ $stmt->close();
             align-items: center;
         }
         .progress-info {
+            padding: 2px 400px;
             display: flex;
-            gap: 30px;
+            gap: 70px;
             align-items: center;
         }
         .progress-item {
@@ -236,7 +237,7 @@ $stmt->close();
         .progress-item .value {
             font-size: 24px;
             font-weight: 700;
-            color: #667eea;
+            color: #ffffffff;
         }
         .timer {
             font-size: 32px;
@@ -388,6 +389,37 @@ $stmt->close();
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+        .test-case-result {
+            padding: 14px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border-left: 4px solid;
+            animation: slideIn 0.3s ease-out;
+        }
+        .test-case-result code {
+            background: rgba(0,0,0,0.08);
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            word-break: break-all;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        #resultSection {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
         @media (max-width: 768px) {
             body { padding-top: 60px; }
             .content-wrapper { flex-direction: column; }
@@ -469,7 +501,7 @@ $stmt->close();
 
                         <div class="form-group" style="margin-top: 20px;">
                             <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 600;">Select Language:</label>
-                            <select name="language" class="form-control" required style="padding: 10px; border: 2px solid #e0e0e0; border-radius: 6px;">
+                            <select name="language" class="form-control" required style="padding: 5px; border: 2px solid #e0e0e0; border-radius: 6px;">
                                 <option value="">-- Choose Language --</option>
                                 <option value="python">Python 3</option>
                                 <option value="cpp">C++</option>
@@ -554,22 +586,13 @@ $stmt->close();
                 dataType: 'json',
                 success: function(response) {
                     if (response.error) {
-                        $('#resultContent').html('<div class="alert alert-danger">' + response.error + '</div>');
+                        $('#resultContent').html('<div class="alert alert-danger"><strong>Error:</strong> ' + response.error + '</div>');
                         $('#resultSection').show();
                         btn.prop('disabled', false).html(originalText);
                         return;
                     }
                     
-                    if (response.auto_advance) {
-                        // Show success and auto advance
-                        $('#resultContent').html('<div class="alert alert-success"><strong>✓ All tests passed!</strong><br>Moving to next problem...</div>');
-                        $('#resultSection').show();
-                        setTimeout(function() {
-                            autoAdvanceProblem();
-                        }, 2000);
-                        return;
-                    }
-
+                    // Build results HTML with detailed test case info
                     let html = '<div class="alert alert-' + (response.status === 'accepted' ? 'success' : 'danger') + '">';
                     html += '<strong>Status: ' + response.status.toUpperCase() + '</strong><br>';
                     html += 'Test Cases: ' + response.test_cases_passed + '/' + response.test_cases_total;
@@ -577,29 +600,58 @@ $stmt->close();
 
                     if (response.results) {
                         response.results.forEach(function(result, index) {
-                            const cssClass = result.passed ? 'alert-success' : 'alert-danger';
-                            html += '<div style="padding: 10px; border-radius: 4px; margin: 8px 0; background: ' + (result.passed ? '#d4edda' : '#f8d7da') + '">';
-                            html += '<strong>Test ' + (index + 1) + ': ' + (result.passed ? '✓ PASSED' : '✗ FAILED') + '</strong><br>';
-                            html += '<small>Input: <code>' + result.input + '</code></small><br>';
-                            if (!result.passed) {
-                                html += '<small>Expected: <code>' + result.expected + '</code></small><br>';
-                                if (result.actual) html += '<small>Got: <code>' + result.actual + '</code></small>';
+                            const passed = result.passed;
+                            const bgColor = passed ? '#d4edda' : '#f8d7da';
+                            const borderColor = passed ? '#28a745' : '#dc3545';
+                            
+                            html += '<div style="padding: 12px; border-radius: 6px; margin: 10px 0; background: ' + bgColor + '; border-left: 4px solid ' + borderColor + ';">';
+                            html += '<strong>' + (passed ? '✓ PASSED' : '✗ FAILED') + ' - Test Case ' + (index + 1) + '</strong><br>';
+                            html += '<small style="color: #555;"><strong>Input:</strong> <code style="background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 3px;">' + escapeHtml(result.input) + '</code></small><br>';
+                            html += '<small style="color: #555;"><strong>Expected:</strong> <code style="background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 3px;">' + escapeHtml(result.expected) + '</code></small>';
+                            
+                            if (result.actual) {
+                                html += '<br><small style="color: #555;"><strong>Got:</strong> <code style="background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 3px;">' + escapeHtml(result.actual) + '</code></small>';
                             }
+                            
+                            if (result.error) {
+                                html += '<br><small style="color: #d32f2f;"><strong>Error:</strong> ' + escapeHtml(result.error) + '</small>';
+                            }
+                            
                             html += '</div>';
                         });
                     }
 
                     $('#resultContent').html(html);
                     $('#resultSection').show();
-                    btn.prop('disabled', false).html(originalText);
+                    
+                    // Auto-advance to next problem after delay if all tests passed
+                    if (response.auto_advance) {
+                        setTimeout(function() {
+                            autoAdvanceProblem();
+                        }, 3000);
+                    } else {
+                        btn.prop('disabled', false).html(originalText);
+                    }
                 },
                 error: function(err) {
-                    $('#resultContent').html('<div class="alert alert-danger">Error submitting code. Please try again.</div>');
+                    $('#resultContent').html('<div class="alert alert-danger"><strong>Error:</strong> Failed to submit code. Please try again.</div>');
                     $('#resultSection').show();
                     btn.prop('disabled', false).html(originalText);
                 }
             });
         });
+        
+        // Helper function to escape HTML
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
     </script>
 </body>
 </html>
