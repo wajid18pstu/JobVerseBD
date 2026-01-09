@@ -284,16 +284,7 @@
                                             <li>Maintenance & Site Management</li>
                                         </ul>
                                     </div>
-                                    <div style="margin-bottom: 15px;">
-                                        <p style="color: #333; font-weight: bold; margin-bottom: 10px;">🔧 Coding Test Questions:</p>
-                                        <ul style="color: #666; margin-bottom: 0;">
-                                            <li>Write a SQL query</li>
-                                            <li>Debug a code snippet</li>
-                                            <li>Network troubleshooting scenario</li>
-                                            <li>Software testing case study</li>
-                                            <li>ERP workflow questions</li>
-                                        </ul>
-                                    </div>
+                                   
                                     <a href="examInstructions.php?exam_id=1" class="btn btn-info" style="padding: 12px 25px; font-size: 15px;">
                                         🎯 Start IT & Tech Exam
                                     </a>

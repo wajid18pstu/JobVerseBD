@@ -517,39 +517,48 @@ require_once __DIR__ . '/lang.php';
             </form>
           </div>
           <div class="jobs-container">
-          <!----------------------SUM OF POSTS & ACTIVE USERS USING VIEW TABLES--------------------------->
+          <!----------------------SUM OF POSTS & ACTIVE USERS USING REAL COUNTS--------------------------->
           <div class="stats-section">
             <!-- sum of posts -->
             <?php
             include 'connect.php';
-            $sql = "select * from `totalposts`";
+            $sql = "SELECT COUNT(*) as total_posts FROM `post`";
             $totalresult = $conn->query($sql);
-            if ($totalresult->num_rows > 0) {
-              while ($row = $totalresult->fetch_assoc()) {
-                $numberofposts = $row['AllPosts'];
+            if ($totalresult) {
+              $row = $totalresult->fetch_assoc();
+              $numberofposts = $row['total_posts'];
             ?>
                 <div class="stat-card">
                   <div class="stat-number"><?php echo $numberofposts; ?></div>
                   <div class="stat-label"><?php echo t('total_job_posts'); ?></div>
                 </div>
-            <?php }
-            } ?>
+            <?php } ?>
 
             <!-- active users -->
             <?php
-            include 'connect.php';
-            $sql = "select * from `users`";
-            $userresult = $conn->query($sql);
-            if ($userresult->num_rows > 0) {
-              while ($row = $userresult->fetch_assoc()) {
-                $numberofusers = $row['SeekersAndEmployers'];
+            $sql_seekers = "SELECT COUNT(*) as seeker_count FROM `seeker`";
+            $sql_employers = "SELECT COUNT(*) as employer_count FROM `employer`";
+            $seekers_result = $conn->query($sql_seekers);
+            $employers_result = $conn->query($sql_employers);
+            
+            $seeker_count = 0;
+            $employer_count = 0;
+            
+            if ($seekers_result) {
+              $row = $seekers_result->fetch_assoc();
+              $seeker_count = $row['seeker_count'];
+            }
+            if ($employers_result) {
+              $row = $employers_result->fetch_assoc();
+              $employer_count = $row['employer_count'];
+            }
+            
+            $totalusers = $seeker_count + $employer_count;
             ?>
                 <div class="stat-card">
-                  <div class="stat-number"><?php echo $numberofusers; ?></div>
+                  <div class="stat-number"><?php echo $totalusers; ?></div>
                   <div class="stat-label"><?php echo t('active_users'); ?></div>
                 </div>
-            <?php }
-            } ?>
           </div>
 
           <!-- Job Listings -->

@@ -16,9 +16,10 @@ if (!$result_id) {
 }
 
 // Get result details
-$result_query = "SELECT er.*, e.exam_name, e.passing_marks
+$result_query = "SELECT er.*, e.exam_name, e.passing_marks, s.name as full_name
                  FROM exam_results er
                  JOIN exams e ON er.exam_id = e.exam_id
+                 LEFT JOIN seeker s ON er.seeker_id = s.id
                  WHERE er.result_id = $result_id AND er.seeker_id = " . $_SESSION['sid'];
 
 $result = mysqli_query($conn, $result_query);

@@ -236,12 +236,210 @@
             margin-bottom: 10px;
         }
 
+        /* Certificate Styles */
+        .certificate-container {
+            display: none;
+            margin: 20px 0;
+        }
+
+        .certificate-container.show {
+            display: block;
+        }
+
+        .certificate-document {
+            background: white;
+            border: 8px solid #d4af37;
+            border-radius: 15px;
+            padding: 60px;
+            text-align: center;
+            page-break-after: avoid;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .certificate-document::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #FFD700, #FFA500);
+            border-radius: 50%;
+            opacity: 0.2;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .certificate-header {
+            margin-bottom: 30px;
+            border-bottom: 3px solid #d4af37;
+            padding-bottom: 20px;
+        }
+
+        .certificate-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .certificate-subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .certificate-content {
+            margin: 40px 0;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .cert-to {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .cert-name {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-decoration: underline;
+            text-decoration-style: wavy;
+            text-decoration-color: #d4af37;
+            margin: 20px 0;
+            letter-spacing: 1px;
+        }
+
+        .cert-message {
+            font-size: 16px;
+            color: #333;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .cert-achievement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .cert-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .cert-detail-item {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #d4af37;
+        }
+
+        .cert-detail-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cert-detail-value {
+            font-size: 18px;
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+
+        .cert-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 3px solid #d4af37;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .cert-signature {
+            text-align: center;
+        }
+
+        .signature-line {
+            border-bottom: 2px solid #333;
+            margin: 5px 0 10px 0;
+            height: 5px;
+        }
+
+        .signature-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .cert-seal {
+            text-align: center;
+            font-size: 60px;
+            margin: 20px 0;
+            opacity: 0.3;
+        }
+
+        .certificate-buttons {
+            margin-top: 20px;
+            text-align: center;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .certificate-buttons button {
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #d4af37;
+            background: white;
+            color: #667eea;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .certificate-buttons button:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        }
+
         @media print {
             body {
                 background: white;
             }
             .buttons-container {
                 display: none;
+            }
+            .answer-review {
+                display: none;
+            }
+            .certificate-buttons {
+                display: none;
+            }
+            .certificate-document {
+                box-shadow: none;
+                border: 5px solid #d4af37;
+                page-break-after: always;
             }
         }
     </style>
@@ -283,8 +481,6 @@
                     </div>
                 </div>
 
-                <div id="certificateSection"></div>
-
                 <div class="answer-review">
                     <h4>📝 Answer Review</h4>
                     <div id="answersContainer">
@@ -292,8 +488,10 @@
                     </div>
                 </div>
 
+                <div id="certificateContainer" class="certificate-container"></div>
+
                 <div class="buttons-container">
-                    <button class="btn btn-primary" onclick="printResults()">🖨️ Print Results</button>
+                    <button id="generateCertBtn" class="btn btn-primary" onclick="generateCertificate()" style="display: none;">🏆 Generate Certificate</button>
                     <button class="btn btn-primary" onclick="downloadResults()">📥 Download PDF</button>
                     <button class="btn btn-secondary" onclick="goToDashboard()">Back to Dashboard</button>
                 </div>
@@ -303,8 +501,12 @@
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         const resultId = new URLSearchParams(window.location.search).get('result_id');
+        let currentResult = null;
+        let currentAnswers = null;
 
         function formatTime(seconds) {
             const hours = Math.floor(seconds / 3600);
@@ -336,6 +538,8 @@
                 .then(data => {
                     console.log('Parsed data:', data);
                     if (data.success) {
+                        currentResult = data.result;
+                        currentAnswers = data.answers;
                         displayResults(data.result, data.answers);
                     } else {
                         throw new Error(data.message || 'Failed to load results');
@@ -360,9 +564,11 @@
             if (passed) {
                 resultHeader.classList.add('passed');
                 document.getElementById('resultMessage').textContent = '🎉 Congratulations!';
+                document.getElementById('generateCertBtn').style.display = 'inline-block';
             } else {
                 resultHeader.classList.remove('passed');
                 document.getElementById('resultMessage').textContent = '📚 Better Luck Next Time';
+                document.getElementById('generateCertBtn').style.display = 'none';
             }
 
             // Update status
@@ -382,20 +588,6 @@
             document.getElementById('correctCount').textContent = answers.filter(a => a.is_correct == 1).length + '/' + answers.length;
             document.getElementById('passingMarks').textContent = result.passing_marks;
             document.getElementById('timeTaken').textContent = formatTime(result.time_taken_seconds);
-
-            // Show certificate if passed
-            if (passed) {
-                const certificateHtml = `
-                    <div class="certificate show">
-                        <h3>🏆 Certificate of Achievement</h3>
-                        <p>This is to certify that you have successfully completed the General Knowledge - Jobs & Career Exam</p>
-                        <p style="font-size: 14px;">Score: ${percentage.toFixed(1)}%</p>
-                    </div>
-                `;
-                document.getElementById('certificateSection').innerHTML = certificateHtml;
-            } else {
-                document.getElementById('certificateSection').innerHTML = '';
-            }
 
             // Display answers
             displayAnswers(answers);
@@ -445,8 +637,186 @@
             });
         }
 
-        function printResults() {
-            window.print();
+        function generateCertificate() {
+            if (!currentResult) return;
+
+            const percentage = parseFloat(currentResult.percentage);
+            const correctCount = currentAnswers.filter(a => a.is_correct == 1).length;
+            const totalQuestions = currentAnswers.length;
+            const currentDate = new Date();
+            const formattedDate = currentDate.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            const certificateHtml = `
+                <div class="certificate-document" id="certificatePDF">
+                    <div class="cert-seal">🏅</div>
+                    <div class="certificate-header">
+                        <h1 class="certificate-title">Certificate of Achievement</h1>
+                        <p class="certificate-subtitle">This is to certify that</p>
+                    </div>
+
+                    <div class="certificate-content">
+                        <div class="cert-name">${currentResult.full_name || 'Candidate Name'}</div>
+                        
+                        <div class="cert-message">
+                            has successfully completed and passed the comprehensive examination conducted by
+                            <strong>JobVerseBD</strong>
+                        </div>
+
+                        <div class="cert-achievement">
+                            ✨ Score: ${percentage.toFixed(1)}% ✨
+                        </div>
+
+                        <div class="cert-details">
+                            <div class="cert-detail-item">
+                                <div class="cert-detail-label">Marks Obtained</div>
+                                <div class="cert-detail-value">${currentResult.total_marks_obtained}/${currentResult.total_marks_possible}</div>
+                            </div>
+                            <div class="cert-detail-item">
+                                <div class="cert-detail-label">Passing Marks</div>
+                                <div class="cert-detail-value">${currentResult.passing_marks}</div>
+                            </div>
+                            <div class="cert-detail-item">
+                                <div class="cert-detail-label">Correct Answers</div>
+                                <div class="cert-detail-value">${correctCount}/${totalQuestions}</div>
+                            </div>
+                            <div class="cert-detail-item">
+                                <div class="cert-detail-label">Certificate Date</div>
+                                <div class="cert-detail-value">${formattedDate}</div>
+                            </div>
+                        </div>
+
+                        <p style="margin-top: 30px; font-style: italic; color: #666;">
+                            This certificate is awarded in recognition of outstanding performance and commitment to professional excellence.
+                        </p>
+                    </div>
+
+                    <div class="cert-footer" style="grid-template-columns: 1fr;">
+                        <div class="cert-signature">
+                            <img src="img/seal.png" alt="Seal" style="height: 200px; margin-bottom: 5px;">
+                            <div class="signature-line"></div>
+                            <div class="signature-title" style="margin-top: 0;">Authorized by JobVerseBD</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="certificate-buttons">
+                    <button onclick="printCertificate()">🖨️ Print Certificate</button>
+                    <button onclick="downloadCertificatePDF(event)">📥 Download PDF</button>
+                </div>
+            `;
+
+            const container = document.getElementById('certificateContainer');
+            container.innerHTML = certificateHtml;
+            container.classList.add('show');
+
+            // Scroll to certificate
+            setTimeout(() => {
+                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+        function printCertificate() {
+            const certElement = document.getElementById('certificatePDF');
+            if (certElement) {
+                const printWindow = window.open('', '', 'width=1200,height=800');
+                printWindow.document.write('<html><head><title>Certificate</title>');
+                printWindow.document.write('<style>');
+                printWindow.document.write(document.querySelector('style').innerHTML);
+                printWindow.document.write('</style></head><body>');
+                printWindow.document.write(certElement.outerHTML);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                setTimeout(() => {
+                    printWindow.print();
+                }, 250);
+            }
+        }
+
+        function downloadCertificatePDF(event) {
+            const certElement = document.getElementById('certificatePDF');
+            if (!certElement) {
+                alert('Certificate not found. Please generate the certificate first.');
+                return;
+            }
+
+            try {
+                // Show a loading indicator
+                const btn = event ? event.target : document.querySelector('[onclick*="downloadCertificatePDF"]');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '⏳ Generating PDF...';
+                btn.disabled = true;
+
+                const fileName = `Certificate_${currentResult.full_name || 'Candidate'}_${new Date().getTime()}.pdf`;
+                
+                // Use html2canvas to convert element to image
+                html2canvas(certElement, {
+                    allowTaint: true,
+                    useCORS: true,
+                    scale: 2,
+                    logging: false,
+                    backgroundColor: '#ffffff'
+                }).then(canvas => {
+                    try {
+                        // Get jsPDF properly from the window object
+                        const jsPDFConstructor = window.jspdf ? window.jspdf.jsPDF : window.jsPDF;
+                        
+                        if (!jsPDFConstructor) {
+                            throw new Error('jsPDF library not loaded. Please refresh the page.');
+                        }
+                        
+                        const imgData = canvas.toDataURL('image/png');
+                        const pdf = new jsPDFConstructor({
+                            orientation: 'portrait',
+                            unit: 'mm',
+                            format: 'a4'
+                        });
+                        
+                        const imgWidth = 210; // A4 width in mm
+                        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                        let heightLeft = imgHeight;
+                        let position = 0;
+                        
+                        // Add image to PDF
+                        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= 297; // A4 height in mm
+                        
+                        // Add additional pages if needed
+                        while (heightLeft >= 0) {
+                            position = heightLeft - imgHeight;
+                            pdf.addPage();
+                            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                            heightLeft -= 297;
+                        }
+                        
+                        pdf.save(fileName);
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                        console.log('PDF downloaded successfully');
+                    } catch (pdfError) {
+                        console.error('PDF creation error:', pdfError);
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                        alert('Error creating PDF: ' + pdfError.message);
+                    }
+                }).catch(canvasError => {
+                    console.error('Canvas rendering error:', canvasError);
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    alert('Error rendering certificate: ' + canvasError.message);
+                });
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error downloading certificate: ' + error.message);
+                if (event && event.target) {
+                    event.target.disabled = false;
+                    event.target.innerHTML = '📥 Download PDF';
+                }
+            }
         }
 
         function downloadResults() {
