@@ -9,8 +9,8 @@
 .back-to-top {
     position: fixed;
     display: none;
-    right: 45px;
-    bottom: 45px;
+    left: 17px;
+    bottom: 17px;
     z-index: 99;
 }
 

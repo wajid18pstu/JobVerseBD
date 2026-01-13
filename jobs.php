@@ -678,6 +678,9 @@ require_once __DIR__ . '/lang.php';
   <?php
     }
   } ?>
+
+  <!-- Chatbot Widget -->
+  <?php include 'chatbot_widget.php'; ?>
 </body>
 
 </html>

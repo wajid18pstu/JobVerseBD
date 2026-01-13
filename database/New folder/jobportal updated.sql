@@ -201,10 +201,10 @@ CREATE TABLE `exams` (
 --
 
 INSERT INTO `exams` (`exam_id`, `exam_name`, `exam_category`, `exam_type`, `description`, `total_questions`, `total_marks`, `passing_marks`, `duration_minutes`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 'IT, Engineering, Technical & Software Sector', 'it', 'MCQ', 'Comprehensive exam covering Programming, Data Structures, Databases, Networks, and more', 50, 100, 50, 60, 1, '2026-01-06 16:25:23', '2026-01-06 16:25:23'),
-(2, 'Banking, Finance & Corporate Sector', 'banking', 'MCQ', 'Exam on General Banking, Accounting, Financial Management, and Corporate Knowledge', 50, 100, 50, 60, 1, '2026-01-06 16:25:23', '2026-01-06 16:25:23'),
-(3, 'Education & Training Sector', 'education', 'MCQ', 'Assessment on School Subjects, Teaching Methodology, Psychology, and Education Policy', 50, 100, 50, 60, 1, '2026-01-06 16:25:23', '2026-01-06 16:25:23'),
-(4, 'General Jobs Category', 'general', 'MCQ', 'General knowledge exam for Sales, Marketing, Security, Hotel, Logistics and similar roles', 50, 100, 50, 60, 1, '2026-01-06 16:25:23', '2026-01-06 16:25:23'),
+(1, 'IT, Engineering, Technical & Software Sector', 'it', 'MCQ', 'Comprehensive exam covering Programming, Data Structures, Databases, Networks, and more', 50, 100, 50, 10, 1, '2026-01-06 16:25:23', '2026-01-06 16:25:23'),
+(2, 'Banking, Finance & Corporate Sector', 'banking', 'MCQ', 'Exam on General Banking, Accounting, Financial Management, and Corporate Knowledge', 50, 100, 50, 10, 1, '2026-01-06 16:25:23', '2026-01-06 16:25:23'),
+(3, 'Education & Training Sector', 'education', 'MCQ', 'Assessment on School Subjects, Teaching Methodology, Psychology, and Education Policy', 50, 100, 50, 10, 1, '2026-01-06 16:25:23', '2026-01-06 16:25:23'),
+(4, 'General Jobs Category', 'general', 'MCQ', 'General knowledge exam for Sales, Marketing, Security, Hotel, Logistics and similar roles', 50, 100, 50, 10, 1, '2026-01-06 16:25:23', '2026-01-06 16:25:23'),
 (5, 'Coding Challenge', 'coding', 'Coding Problems', NULL, 5, 100, 50, 180, 1, '2026-01-06 17:01:54', '2026-01-06 17:01:54');
 
 -- --------------------------------------------------------

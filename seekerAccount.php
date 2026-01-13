@@ -19,6 +19,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="css/Animate.css" rel="stylesheet" type="text/css">
     <link href="css/animate.min.css" rel="stylesheet" type="text/css">
+    
+    <!-- Font Awesome for Chatbot Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!--FONTS-->
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200&display=swap" rel="stylesheet">
@@ -578,6 +581,9 @@
 
     <script src="js/tilt.jquery.min.js"></script>
     <script src="js/signinModal.js"></script>
+
+    <!-- Chatbot Widget -->
+    <?php include 'chatbot_widget.php'; ?>
 </body>
 
 </html>

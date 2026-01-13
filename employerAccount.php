@@ -23,6 +23,9 @@
     <link href="css/Animate.css" rel="stylesheet" type="text/css">
     <link href="css/animate.min.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
+    
+    <!-- Font Awesome for Chatbot Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!--FONTS-->
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200&display=swap" rel="stylesheet">
@@ -264,6 +267,9 @@
             $('#postTable').DataTable();
         });
     </script>
+
+    <!-- Chatbot Widget -->
+    <?php include 'chatbot_widget.php'; ?>
 </body>
 
 </html>

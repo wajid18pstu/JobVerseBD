@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `exam_answers` (
 -- Insert 4 different exam categories
 INSERT INTO `exams` (`exam_id`, `exam_name`, `description`, `exam_category`, `exam_type`, `total_questions`, `total_marks`, `passing_marks`, `duration_minutes`, `is_active`) 
 VALUES 
-(1, 'IT, Engineering, Technical & Software Sector', 'Comprehensive exam covering Programming, Data Structures, Databases, Networks, and Coding Problems', 'it', 'MCQ+Short Questions+Coding Test', 40, 100, 50, 90, 1),
-(2, 'Banking, Finance & Corporate Sector', 'Exam on General Banking, Accounting, Financial Management, and Corporate Knowledge', 'banking', 'MCQ', 50, 100, 50, 60, 1),
-(3, 'Education & Training Sector', 'Assessment on School Subjects, Teaching Methodology, Psychology, and Education Policy', 'education', 'MCQ+Short Answer', 45, 100, 50, 75, 1),
-(4, 'General Jobs Category', 'General knowledge exam for Sales, Marketing, Security, Hotel, Logistics and similar roles', 'general', 'MCQ', 50, 100, 50, 60, 1);
+(1, 'IT, Engineering, Technical & Software Sector', 'Comprehensive exam covering Programming, Data Structures, Databases, Networks, and Coding Problems', 'it', 'MCQ+Short Questions+Coding Test', 40, 100, 50, 10, 1),
+(2, 'Banking, Finance & Corporate Sector', 'Exam on General Banking, Accounting, Financial Management, and Corporate Knowledge', 'banking', 'MCQ', 50, 100, 50, 10, 1),
+(3, 'Education & Training Sector', 'Assessment on School Subjects, Teaching Methodology, Psychology, and Education Policy', 'education', 'MCQ+Short Answer', 45, 100, 50, 10, 1),
+(4, 'General Jobs Category', 'General knowledge exam for Sales, Marketing, Security, Hotel, Logistics and similar roles', 'general', 'MCQ', 50, 100, 50, 10, 1);

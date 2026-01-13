@@ -75,6 +75,7 @@ require_once __DIR__ . '/lang.php';
           <ul class="dropdown-menu" role="menu">
             <li><a href="adminAccount.php">'.t('view_account').'</a></li>
               <li><a href="ViewApplicantsAdmin.php">View All Applications</a></li>
+              <li><a href="adminMessages.php">Messages</a></li>
             <li><a href="logout.php">'.t('logout').'</a></li>
        
           </ul>

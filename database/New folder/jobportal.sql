@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2026 at 08:34 AM
+-- Generation Time: Jan 13, 2026 at 07:05 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,80 +40,6 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id`, `name`, `email`, `password`) VALUES
 (1, 'Shafayat Hossain Chowdhury', 'shafayat18@cse.pstu.ac.bd', '2002033');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `chatbot_conversations`
---
-
-CREATE TABLE `chatbot_conversations` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `session_id` varchar(255) NOT NULL,
-  `user_message` varchar(1000) NOT NULL,
-  `bot_response` varchar(2000) NOT NULL,
-  `timestamp` datetime DEFAULT current_timestamp(),
-  `user_ip` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `chatbot_conversations`
---
-
-INSERT INTO `chatbot_conversations` (`id`, `user_id`, `session_id`, `user_message`, `bot_response`, `timestamp`, `user_ip`) VALUES
-(4, 0, 'c091ba6f344392cf6f50299706cd6f02', 'hi', 'Hello! 👋 Welcome to JobVerseBD. How can I help you today?', '2026-01-13 13:09:36', '::1'),
-(5, NULL, 'd24bf48b1b4562ccbc0fb8914b229180', 'hi', 'Hello! 👋 Welcome to JobVerseBD. How can I help you today?', '2026-01-13 13:14:48', '::1'),
-(6, NULL, 'd24bf48b1b4562ccbc0fb8914b229180', 'hi', 'Hey! Welcome to JobVerseBD. Feel free to ask me anything about our platform!', '2026-01-13 13:16:10', '::1'),
-(7, NULL, 'd24bf48b1b4562ccbc0fb8914b229180', 'register', 'To register on JobVerseBD, click on the \"Sign Up\" button on the homepage and fill in your details. Choose whether you want to register as a Job Seeker or Employer. Verify your email and start using the platform.', '2026-01-13 13:16:17', '::1'),
-(8, NULL, 'd24bf48b1b4562ccbc0fb8914b229180', 'hi', 'Hello! 👋 Welcome to JobVerseBD. How can I help you today?', '2026-01-13 13:18:53', '::1'),
-(9, NULL, 'd24bf48b1b4562ccbc0fb8914b229180', 'hi', 'Hey! Welcome to JobVerseBD. Feel free to ask me anything about our platform!', '2026-01-13 13:19:52', '::1'),
-(10, NULL, 'd24bf48b1b4562ccbc0fb8914b229180', 'hi', 'Hey! Welcome to JobVerseBD. Feel free to ask me anything about our platform!', '2026-01-13 13:20:30', '::1'),
-(11, NULL, 'd24bf48b1b4562ccbc0fb8914b229180', 'hi', 'Hello! 👋 Welcome to JobVerseBD. How can I help you today?', '2026-01-13 13:21:02', '::1'),
-(12, NULL, 'c4aed6e79460cf143be814e53c44986f', 'hi', 'Hey! Welcome to JobVerseBD. Feel free to ask me anything about our platform!', '2026-01-13 13:33:02', '::1');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `chatbot_faqs`
---
-
-CREATE TABLE `chatbot_faqs` (
-  `id` int(11) NOT NULL,
-  `question` varchar(500) NOT NULL,
-  `answer` varchar(2000) NOT NULL,
-  `category` varchar(100) DEFAULT NULL,
-  `keywords` varchar(500) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `is_active` tinyint(1) DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `chatbot_faqs`
---
-
-INSERT INTO `chatbot_faqs` (`id`, `question`, `answer`, `category`, `keywords`, `created_at`, `updated_at`, `is_active`) VALUES
-(1, 'How do I register on JobVerseBD?', 'To register on JobVerseBD, click on the \"Sign Up\" button on the homepage and fill in your details. Choose whether you want to register as a Job Seeker or Employer. Verify your email and start using the platform.', 'Registration', 'register, signup, account, create account', '2026-01-13 12:55:52', '2026-01-13 12:55:52', 1),
-(2, 'How do I post a job?', 'If you are an employer, go to your account dashboard and click on \"Post a Job\". Fill in the job details including title, description, requirements, and salary. Review and publish your job posting.', 'Jobs', 'post job, create job, job posting', '2026-01-13 12:55:52', '2026-01-13 12:55:52', 1),
-(3, 'How do I apply for a job?', 'Log in to your account as a Job Seeker. Browse available jobs and click on any job you are interested in. Click the \"Apply\" button and submit your application along with your resume.', 'Jobs', 'apply job, application, submit application', '2026-01-13 12:55:52', '2026-01-13 12:55:52', 1),
-(4, 'What is the coding exam feature?', 'The coding exam feature allows employers to assess technical skills of job seekers. Job seekers can practice coding problems and take timed exams as part of the application process.', 'Coding Exam', 'coding exam, test, assessment, practice', '2026-01-13 12:55:52', '2026-01-13 12:55:52', 1),
-(5, 'How do I reset my password?', 'Click on \"Forgot Password\" on the login page. Enter your email address and you will receive a password reset link. Click the link and set a new password.', 'Account', 'password reset, forgot password, password change', '2026-01-13 12:55:52', '2026-01-13 12:55:52', 1),
-(6, 'How do I contact support?', 'You can contact us through the Contact page. Fill in your query and we will get back to you as soon as possible. You can also email us or call our support team.', 'Support', 'contact, support, help, assistance', '2026-01-13 12:55:52', '2026-01-13 12:55:52', 1),
-(7, 'What is the payment system?', 'We use a secure payment gateway (SSL Commerz) to process payments. All transactions are encrypted and secure. Premium features and services can be accessed through this payment system.', 'Payment', 'payment, billing, subscription, premium', '2026-01-13 12:55:52', '2026-01-13 12:55:52', 1),
-(8, 'How do I view my application status?', 'Log in to your account and go to \"My Applications\" or \"Applied Jobs\". Here you can see all your applications and their current status.', 'Application', 'application status, view applications, applied jobs', '2026-01-13 12:55:52', '2026-01-13 12:55:52', 1),
-(9, 'Can I edit my profile?', 'Yes, you can edit your profile by going to your Account page and clicking \"Edit Profile\". Update your information and save the changes.', 'Account', 'profile, edit profile, update profile', '2026-01-13 12:55:52', '2026-01-13 12:55:52', 1),
-(10, 'What is a saved job?', 'You can save jobs to view them later. Click the heart icon on a job listing to save it. Access your saved jobs from your dashboard.', 'Jobs', 'saved job, save job, favorites, bookmark', '2026-01-13 12:55:52', '2026-01-13 12:55:52', 1),
-(11, 'How do I register on JobVerseBD?', 'To register on JobVerseBD, click on the \"Sign Up\" button on the homepage and fill in your details. Choose whether you want to register as a Job Seeker or Employer. Verify your email and start using the platform.', 'Registration', 'register, signup, account, create account', '2026-01-13 12:56:24', '2026-01-13 12:56:24', 1),
-(12, 'How do I post a job?', 'If you are an employer, go to your account dashboard and click on \"Post a Job\". Fill in the job details including title, description, requirements, and salary. Review and publish your job posting.', 'Jobs', 'post job, create job, job posting', '2026-01-13 12:56:24', '2026-01-13 12:56:24', 1),
-(13, 'How do I apply for a job?', 'Log in to your account as a Job Seeker. Browse available jobs and click on any job you are interested in. Click the \"Apply\" button and submit your application along with your resume.', 'Jobs', 'apply job, application, submit application', '2026-01-13 12:56:24', '2026-01-13 12:56:24', 1),
-(14, 'What is the coding exam feature?', 'The coding exam feature allows employers to assess technical skills of job seekers. Job seekers can practice coding problems and take timed exams as part of the application process.', 'Coding Exam', 'coding exam, test, assessment, practice', '2026-01-13 12:56:24', '2026-01-13 12:56:24', 1),
-(15, 'How do I reset my password?', 'Click on \"Forgot Password\" on the login page. Enter your email address and you will receive a password reset link. Click the link and set a new password.', 'Account', 'password reset, forgot password, password change', '2026-01-13 12:56:24', '2026-01-13 12:56:24', 1),
-(16, 'How do I contact support?', 'You can contact us through the Contact page. Fill in your query and we will get back to you as soon as possible. You can also email us or call our support team.', 'Support', 'contact, support, help, assistance', '2026-01-13 12:56:25', '2026-01-13 12:56:25', 1),
-(17, 'What is the payment system?', 'We use a secure payment gateway (SSL Commerz) to process payments. All transactions are encrypted and secure. Premium features and services can be accessed through this payment system.', 'Payment', 'payment, billing, subscription, premium', '2026-01-13 12:56:25', '2026-01-13 12:56:25', 1),
-(18, 'How do I view my application status?', 'Log in to your account and go to \"My Applications\" or \"Applied Jobs\". Here you can see all your applications and their current status.', 'Application', 'application status, view applications, applied jobs', '2026-01-13 12:56:25', '2026-01-13 12:56:25', 1),
-(19, 'Can I edit my profile?', 'Yes, you can edit your profile by going to your Account page and clicking \"Edit Profile\". Update your information and save the changes.', 'Account', 'profile, edit profile, update profile', '2026-01-13 12:56:25', '2026-01-13 12:56:25', 1),
-(20, 'What is a saved job?', 'You can save jobs to view them later. Click the heart icon on a job listing to save it. Access your saved jobs from your dashboard.', 'Jobs', 'saved job, save job, favorites, bookmark', '2026-01-13 12:56:25', '2026-01-13 12:56:25', 1);
 
 -- --------------------------------------------------------
 
@@ -282,10 +208,10 @@ CREATE TABLE `exams` (
 --
 
 INSERT INTO `exams` (`exam_id`, `exam_name`, `exam_category`, `exam_type`, `description`, `total_questions`, `total_marks`, `passing_marks`, `duration_minutes`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 'IT, Engineering, Technical & Software Sector', 'it', 'MCQ', 'Comprehensive exam covering Programming, Data Structures, Databases, Networks, and more', 50, 100, 50, 10, 1, '2026-01-06 16:25:23', '2026-01-13 06:08:35'),
-(2, 'Banking, Finance & Corporate Sector', 'banking', 'MCQ', 'Exam on General Banking, Accounting, Financial Management, and Corporate Knowledge', 50, 100, 50, 10, 1, '2026-01-06 16:25:23', '2026-01-13 06:08:35'),
-(3, 'Education & Training Sector', 'education', 'MCQ', 'Assessment on School Subjects, Teaching Methodology, Psychology, and Education Policy', 50, 100, 50, 10, 1, '2026-01-06 16:25:23', '2026-01-13 06:08:35'),
-(4, 'General Jobs Category', 'general', 'MCQ', 'General knowledge exam for Sales, Marketing, Security, Hotel, Logistics and similar roles', 50, 100, 50, 10, 1, '2026-01-06 16:25:23', '2026-01-13 06:08:35'),
+(1, 'IT, Engineering, Technical & Software Sector', 'it', 'MCQ', 'Comprehensive exam covering Programming, Data Structures, Databases, Networks, and more', 50, 100, 50, 60, 1, '2026-01-06 16:25:23', '2026-01-06 16:25:23'),
+(2, 'Banking, Finance & Corporate Sector', 'banking', 'MCQ', 'Exam on General Banking, Accounting, Financial Management, and Corporate Knowledge', 50, 100, 50, 60, 1, '2026-01-06 16:25:23', '2026-01-06 16:25:23'),
+(3, 'Education & Training Sector', 'education', 'MCQ', 'Assessment on School Subjects, Teaching Methodology, Psychology, and Education Policy', 50, 100, 50, 60, 1, '2026-01-06 16:25:23', '2026-01-06 16:25:23'),
+(4, 'General Jobs Category', 'general', 'MCQ', 'General knowledge exam for Sales, Marketing, Security, Hotel, Logistics and similar roles', 50, 100, 50, 60, 1, '2026-01-06 16:25:23', '2026-01-06 16:25:23'),
 (5, 'Coding Challenge', 'coding', 'Coding Problems', NULL, 5, 100, 50, 180, 1, '2026-01-06 17:01:54', '2026-01-06 17:01:54');
 
 -- --------------------------------------------------------
@@ -1327,22 +1253,6 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `chatbot_conversations`
---
-ALTER TABLE `chatbot_conversations`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `session_id` (`session_id`),
-  ADD KEY `timestamp` (`timestamp`);
-
---
--- Indexes for table `chatbot_faqs`
---
-ALTER TABLE `chatbot_faqs`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `category` (`category`),
-  ADD KEY `is_active` (`is_active`);
-
---
 -- Indexes for table `coding_exam_results`
 --
 ALTER TABLE `coding_exam_results`
@@ -1484,18 +1394,6 @@ ALTER TABLE `test_cases`
 --
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `chatbot_conversations`
---
-ALTER TABLE `chatbot_conversations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `chatbot_faqs`
---
-ALTER TABLE `chatbot_faqs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `coding_exam_results`

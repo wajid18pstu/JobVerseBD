@@ -222,6 +222,9 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <!-- Chatbot Widget -->
+    <?php include 'chatbot_widget.php'; ?>
 </body>
 
 </html>
