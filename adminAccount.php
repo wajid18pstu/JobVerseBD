@@ -130,7 +130,8 @@
         .table-container {
             background: white;
             border-radius: 8px;
-            overflow: hidden;
+            overflow-y: auto;
+            max-height: 500px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 40px;
         }

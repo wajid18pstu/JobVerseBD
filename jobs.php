@@ -307,7 +307,7 @@ require_once __DIR__ . '/lang.php';
 
     .filter-section select {
       width: 100%;
-      padding: 14px 16px;
+      padding: 10px 16px;
       border: 2px solid #e8e8e8;
       border-radius: 10px;
       font-size: 0.95rem;
@@ -321,6 +321,147 @@ require_once __DIR__ . '/lang.php';
       background-repeat: no-repeat;
       background-position: right 12px center;
       padding-right: 38px;
+    }
+
+    /* Modal Container */
+    .modal-dialog {
+      margin: 10px;
+    }
+    
+    .modal-body {
+      padding: 0;
+      overflow-y: auto;
+      max-height: 70vh;
+    }
+    
+    /* Navigation Tabs */
+    .nav-tabs {
+      margin: 0;
+      border-bottom: 1px solid rgba(233, 196, 106, 0.3);
+      display: flex;
+      width: 100%;
+    }
+    
+    .nav-tabs li {
+      flex: 1;
+      margin: 0;
+    }
+    
+    .nav-tabs li a {
+      display: block;
+      padding: 15px 10px;
+      text-align: center;
+      border: none;
+      background: transparent;
+      color: #e9c46a;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    
+    .nav-tabs li.active a {
+      border-bottom: 2px solid #e9c46a;
+      background: transparent;
+    }
+    
+    /* Tab Content */
+    .tab-content {
+      padding: 20px 15px;
+      width: 100%;
+    }
+    
+    .tab-pane {
+      width: 100%;
+      display: none;
+    }
+    
+    .tab-pane.active {
+      display: block;
+    }
+    
+    /* Form Styles */
+    .cd-form {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .fieldset {
+      margin-bottom: 15px;
+      width: 100%;
+      display: block;
+      padding: 0;
+    }
+    
+    .fieldset input,
+    .fieldset textarea,
+    .fieldset select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      margin: 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    
+    .fieldset label {
+      display: block;
+      margin-bottom: 5px;
+      color: white;
+      font-size: 13px;
+    }
+    
+    /* Button Styles */
+    .btn-success,
+    .full-width {
+      width: 100%;
+      padding: 12px !important;
+      background-color: #e9c46a;
+      color: #1d3557;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    
+    .btn-success:hover {
+      background-color: #d4b84f;
+    }
+    
+    /* Modal Title Styling */
+    #msgModal .modal-title {
+      color: black !important;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .modal-dialog {
+        max-width: 100%;
+        margin: 10px auto;
+      }
+      .fieldset input {
+        padding: 10px;
+        font-size: 13px;
+      }
+      .nav-tabs li a {
+        padding: 12px 8px;
+        font-size: 12px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .modal-body {
+        max-height: 85vh;
+      }
+      .fieldset input {
+        padding: 8px;
+        font-size: 12px;
+      }
+      .nav-tabs li a {
+        padding: 10px 5px;
+        font-size: 11px;
+      }
     }
 
     .filter-section select:hover {
@@ -401,6 +542,7 @@ require_once __DIR__ . '/lang.php';
       background: white;
       padding: 20px;
       overflow-y: auto;
+      overflow-x: hidden;
       box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
       z-index: 100;
     }
@@ -408,14 +550,20 @@ require_once __DIR__ . '/lang.php';
     .left-sidebar .logo-section {
       text-align: center;
       margin-bottom: 30px;
-      padding: 10px 0;
+      padding: 30px 10px 20px 10px;
       border-bottom: 2px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
     }
 
     .left-sidebar .logo-section img {
       width: 150px;
       height: auto;
-      margin-bottom: 10px;
+      max-height: 110px;
+      object-fit: contain;
+      margin: 0;
     }
 
     .main-content {
@@ -425,7 +573,7 @@ require_once __DIR__ . '/lang.php';
     }
 
     /* Responsive */
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
       .left-sidebar {
         position: relative;
         width: 100%;
@@ -437,18 +585,40 @@ require_once __DIR__ . '/lang.php';
 
       .main-content {
         margin-left: 0;
+        margin-right: 0;
       }
 
+      .search-section {
+        padding: 0 10px;
+      }
+
+      .stats-section {
+        padding: 0 10px;
+      }
+
+      .jobs-container {
+        padding: 0 10px;
+      }
+    }
+
+    @media (max-width: 768px) {
       .search-section h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
       }
 
       .search-form {
         flex-direction: column;
+        border-radius: 15px;
+      }
+
+      .search-form input {
+        padding: 15px 20px;
+        font-size: 1rem;
       }
 
       .search-form button {
-        padding: 15px;
+        padding: 15px 20px;
       }
 
       .stats-section {
@@ -456,14 +626,207 @@ require_once __DIR__ . '/lang.php';
         gap: 15px;
       }
 
+      .stat-card {
+        padding: 20px 25px;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+
       .job-card {
         margin-left: 0;
         margin-right: 0;
+        padding: 20px;
+      }
+
+      .job-title {
+        font-size: 1.2rem;
+      }
+
+      .company-name {
+        font-size: 0.85rem;
+      }
+
+      .job-description {
+        font-size: 0.85rem;
+        margin: 15px 0;
       }
 
       .job-details {
         flex-direction: column;
-        gap: 15px;
+        gap: 12px;
+        padding: 12px 0;
+      }
+
+      .detail-item {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .detail-label {
+        font-size: 0.75rem;
+        min-width: 120px;
+      }
+
+      .detail-value {
+        font-size: 0.95rem;
+      }
+
+      .apply-btn {
+        width: 100%;
+        text-align: center;
+        padding: 14px 20px;
+        font-size: 0.9rem;
+      }
+
+      .filter-section {
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .filter-section h3 {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+      }
+
+      .filter-section select {
+        padding: 12px 14px;
+        font-size: 0.9rem;
+      }
+
+      .filter-btn {
+        padding: 12px 20px;
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .search-section {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      .search-section h1 {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+      }
+
+      .search-form {
+        border-radius: 10px;
+      }
+
+      .search-form input {
+        padding: 12px 15px;
+        font-size: 0.95rem;
+      }
+
+      .search-form button {
+        padding: 12px 15px;
+      }
+
+      .stat-card {
+        padding: 15px 20px;
+      }
+
+      .stat-number {
+        font-size: 1.8rem;
+        margin-bottom: 5px;
+      }
+
+      .stat-label {
+        font-size: 0.75rem;
+      }
+
+      .job-card {
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+      }
+
+      .job-card::before {
+        width: 80px;
+        height: 80px;
+      }
+
+      .job-title {
+        font-size: 1rem;
+        margin-bottom: 5px;
+      }
+
+      .company-name {
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+      }
+
+      .job-description {
+        font-size: 0.8rem;
+        margin: 10px 0;
+        -webkit-line-clamp: 2;
+      }
+
+      .job-details {
+        padding: 10px 0;
+        border-top: 1px solid #f5f5f5;
+        border-bottom: 1px solid #f5f5f5;
+      }
+
+      .detail-item {
+        margin-bottom: 8px;
+      }
+
+      .detail-label {
+        font-size: 0.7rem;
+        min-width: 100px;
+      }
+
+      .detail-value {
+        font-size: 0.85rem;
+      }
+
+      .apply-btn {
+        padding: 12px 18px;
+        font-size: 0.85rem;
+        margin-top: 12px;
+      }
+
+      .filter-section {
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 12px;
+      }
+
+      .filter-section h3 {
+        font-size: 1rem;
+        margin-bottom: 12px;
+      }
+
+      .filter-section h3::before {
+        width: 3px;
+        height: 20px;
+        margin-right: 8px;
+      }
+
+      .filter-section select {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+      }
+
+      .filter-btn {
+        padding: 10px 15px;
+        font-size: 0.75rem;
+        margin-top: 12px;
+      }
+
+      .left-sidebar .logo-section {
+        min-height: 100px;
+        padding: 15px 10px;
+      }
+
+      .left-sidebar .logo-section img {
+        width: 120px;
+        max-height: 90px;
       }
     }
   </style>

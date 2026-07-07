@@ -251,6 +251,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row" style="margin-top: 20px;">
+                                    <div class="col-md-12">
+                                        <a href="eligibleJobs.php" class="btn btn-success" style="padding: 10px 24px; font-size: 16px;">
+                                            Eligible jobs
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -258,7 +265,7 @@
                     <!-- Exam Section -->
                     <div class="row" style="margin-top: 30px;">
                         <div class="col-md-12">
-                            <div class="panel panel-default" style="padding-top: 20px; padding-bottom: 3500px; background: #fff; border-radius: 16px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            <div class="panel panel-default" style="padding-top: 20px; padding-bottom: 20px; background: #fff; border-radius: 16px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); max-height: 800px; overflow-y: auto;">
                                 <h2 style="color: #333; margin-bottom: 10px;">🎓 Professional Certification Exams</h2>
                                 <p style="color: #666; margin-bottom: 30px; font-size: 16px;">Choose a category that matches your career field and prepare for specialized assessments.</p>
                                 

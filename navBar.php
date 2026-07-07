@@ -48,7 +48,7 @@ require_once __DIR__ . '/lang.php';
           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">' . $myusername . '<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="seekerAccount.php">My Profile</a></li>
-             <li><a href="AppliedJobs.php">Jobs Applied</a></li>
+             <li><a href="Appliedjobs.php">Jobs Applied</a></li>
              <li><a href="logout.php">Logout</a></li>
        
           </ul>
@@ -76,6 +76,7 @@ require_once __DIR__ . '/lang.php';
             <li><a href="adminAccount.php">'.t('view_account').'</a></li>
               <li><a href="ViewApplicantsAdmin.php">View All Applications</a></li>
               <li><a href="adminMessages.php">Messages</a></li>
+              <li><a href="fix_job_categories.php">Fix Job Categories</a></li>
             <li><a href="logout.php">'.t('logout').'</a></li>
        
           </ul>

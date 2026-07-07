@@ -6,6 +6,18 @@ require 'PHPMailer/src/SMTP.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+function configureMailer(PHPMailer $mail)
+{
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    $mail->Username = 'wajid567765@gmail.com';
+    $mail->Password = 'vdcw jixs sqiv lung';
+    $mail->Port = 465;
+    $mail->setFrom('wajid567765@gmail.com', 'JobVerseBD');
+}
+
 if (isset($_POST['send_email'])) {
     $to_email = $_POST['to_email'];
     $subject = $_POST['subject'];
@@ -15,17 +27,9 @@ if (isset($_POST['send_email'])) {
     $mail = new PHPMailer(true);
 
     try {
-        // Server settings
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        $mail->Username = 'wajid567765@gmail.com'; // Your Gmail address
-        $mail->Password = 'lits vyee uvnh geab'; // Your app password
-        $mail->Port = 465; // Using port 465 for SMTP with SSL/TLS
+        configureMailer($mail);
 
         // Recipients
-        $mail->setFrom('your-email@gmail.com', 'JobVerseBD');
         $mail->addAddress($to_email, $applicant_name);
 
         // Content
@@ -57,17 +61,9 @@ if (isset($_POST['send_default_email'])) {
     $mail = new PHPMailer(true);
 
     try {
-        // Server settings
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        $mail->Username = 'wajid567765@gmail.com'; // Your Gmail address
-        $mail->Password = 'lits vyee uvnh geab'; // Your app password
-        $mail->Port = 465; // Using port 465 for SMTP with SSL/TLS
+        configureMailer($mail);
 
         // Recipients
-        $mail->setFrom('your-email@gmail.com', 'JobVerseBD');
         $mail->addAddress($to_email, $applicant_name);
 
         // Content

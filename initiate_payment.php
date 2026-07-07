@@ -66,7 +66,12 @@ $post_data = array(
     'cus_name' => $ename,
     'cus_email' => $email,
     'cus_add1' => 'Bangladesh',
+    'cus_add2' => 'Bangladesh',
+    'cus_city' => 'Dhaka',
+    'cus_state' => 'Dhaka',
+    'cus_postcode' => '1000',
     'cus_country' => 'Bangladesh',
+    'cus_phone' => '8801700000000',
     'shipping_method' => 'NO',
     'product_name' => 'Job Posting - ' . $jobType,
     'product_category' => 'Job Posting',
@@ -122,7 +127,7 @@ if (!isset($response_data['status']) || strtoupper($response_data['status']) !==
 }
 
 // Store payment transaction in database with PENDING status
-$jobDataJson = $conn->real_escape_string(json_encode($jobData));
+$jobDataJson = json_encode($jobData);
 $insertPaymentSql = "INSERT INTO payments (transaction_id, eid, amount, status) 
                      VALUES ('$transaction_id', '$eid', '$amount', 'pending')";
 
@@ -155,7 +160,7 @@ file_put_contents($temp_storage_file, $jobDataJson);
 // Return gateway token for redirect
 echo json_encode([
     'success' => true,
-    'gateway_url' => 'https://sandbox.sslcommerz.com/gwprocess/v3/gw.php?Q=sendtoken&val=' . $response_data['sessionkey'],
+    'gateway_url' => $response_data['GatewayPageURL'],
     'transaction_id' => $transaction_id,
     'payment_id' => $payment_id,
     'job_payment_id' => $job_payment_id,

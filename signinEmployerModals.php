@@ -4,7 +4,13 @@
   color: white;
   text-align:right;
   padding-right:30px;
-  cursor: context-menu;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sgn:hover {
+  color: #e9c46a;
+  text-decoration: none;
 }
 
 .lk {
@@ -18,7 +24,235 @@
   cursor: pointer;
 }
 .ba {
-  color:#e9c46a;
+  color: #000000;
+}
+
+/* Responsive Modal Styles */
+.modal-dialog {
+  margin: auto;
+}
+
+.modal-content {
+  overflow: visible;
+}
+
+.modal-body {
+  padding: 0;
+  overflow-y: auto;
+  max-height: 70vh;
+}
+
+#cd-empsignup .container {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-tabs {
+  margin: 0;
+  border-bottom: 1px solid rgb(65, 65, 65);
+  display: flex;
+  width: 100%;
+  list-style: none;
+  padding: 0;
+}
+
+.nav-tabs li {
+  flex: 1;
+  margin: 0;
+  list-style: none;
+}
+
+.nav-tabs li a {
+  display: block;
+  padding: 15px 10px;
+  text-align: center;
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.nav-tabs li.active a {
+  border-bottom: 2px solid #ffffff;
+  background: transparent;
+}
+
+.tab-content {
+  padding: 20px 15px;
+  width: 100%;
+}
+
+.tab-pane {
+  width: 100%;
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+.cd-form {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.fieldset {
+  margin-bottom: 15px;
+  width: 100%;
+  display: block;
+  padding: 0;
+}
+
+.fieldset input,
+.fieldset textarea,
+.fieldset select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  margin: 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.fieldset label {
+  display: block;
+  margin-bottom: 5px;
+  color: white;
+  font-size: 13px;
+}
+
+.hide-password {
+  color: grey;
+  text-decoration: none;
+  font-size: 12px;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.form-group {
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.btn-success,
+.full-width {
+  width: 100%;
+  padding: 12px !important;
+  background-color: #ffffff;
+  color: #1d3557;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-success:hover {
+  background-color: #6ad44f;
+}
+
+h3 {
+  color: white;
+  padding: 0;
+  margin: 0 0 15px 0;
+  font-size: 18px;
+}
+
+.modal-title {
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .modal-dialog {
+    max-width: 100%;
+    margin: auto;
+  }
+
+  .modal-body {
+    max-height: 80vh;
+  }
+
+  .tab-content {
+    padding: 15px 10px;
+  }
+
+  .fieldset input,
+  .fieldset textarea,
+  .fieldset select {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .fieldset label {
+    font-size: 12px;
+  }
+
+  .nav-tabs li a {
+    padding: 12px 8px;
+    font-size: 12px;
+  }
+
+  h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .btn-success,
+  .full-width {
+    padding: 10px !important;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 576px) {
+  .modal-dialog {
+    margin: auto;
+  }
+
+  .modal-body {
+    max-height: 85vh;
+  }
+
+  .tab-content {
+    padding: 12px 8px;
+  }
+
+  .fieldset input,
+  .fieldset textarea,
+  .fieldset select {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .fieldset label {
+    font-size: 11px;
+  }
+
+  .nav-tabs li a {
+    padding: 10px 5px;
+    font-size: 11px;
+  }
+
+  h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .btn-success,
+  .full-width {
+    padding: 8px !important;
+    font-size: 12px;
+  }
+
+  .hide-password {
+    font-size: 10px;
+  }
 }
 
   </style>
@@ -93,105 +327,85 @@ require_once __DIR__ . '/lang.php';
       <div class="modal-body">
           
           <!-- sign up form -->
-          <div id="cd-empsignup"> 
+          <div id="cd-empsignup">
             <div id="result" style="display:none;"></div>
             
-            <div class="container" styles="">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#home" class="ba"><?php echo t('employer_register'); ?></a></li>
+              <li><a data-toggle="tab" class="ba" href="#menu1"><?php echo t('jobseeker_register'); ?></a></li>
+            </ul>
 
-                <ul class="nav nav-tabs" style="width: 535px;">
-          <li class="active " style="padding-left: 30px;"><a data-toggle="tab" href="#home" class="ba"><?php echo t('employer_register'); ?></a></li>
-          <li><a data-toggle="tab" class="ba" href="#menu1"><?php echo t('jobseeker_register'); ?></a></li>
-                </ul>
+            <div class="tab-content">
+              <div id="home" class="tab-pane fadein active">
+                <h3><?php echo t('register_as_employer'); ?></h3>
+                <form class="cd-form" method="post" action="registerEmployer.php" enctype="multipart/form-data">
+                  <p class="fieldset">
+                    <label><?php echo t('enter_username'); ?></label>
+                    <input class="full-width has-padding has-border" id="name" name="name" type="text" placeholder="<?php echo t('enter_username'); ?>">
+                  </p>
 
-                <div class="tab-content">
-      <div id="home" class="tab-pane fadein active" style="width: 50%;">
-          <h3 style="color: white; padding-left: 30px;"><?php echo t('register_as_employer'); ?></h3>
-      <form class="cd-form" method="post" action="registerEmployer.php" enctype="multipart/form-data">
-                                        <p class="fieldset" style="padding-right: 30px;">
-						<label class="image-replace cd-username" for="empsignup-username">Username</label>
-                                                <input class="full-width has-padding has-border" id="name" name="name" type="text" placeholder="<?php echo t('enter_username'); ?>">
-						
-					</p>
+                  <p class="fieldset">
+                    <label><?php echo t('enter_email'); ?></label>
+                    <input class="full-width has-padding has-border" id="email" name="email" type="email" placeholder="<?php echo t('enter_email'); ?>">
+                  </p>
 
-					<p class="fieldset" style="padding-right: 30px;">
-						<label class="image-replace cd-email" for="empsignup-email">E-mail</label>
-                                                <input class="full-width has-padding has-border" id="email" name="email" type="email" placeholder="<?php echo t('enter_email'); ?>">
-						
-					</p>
+                  <p class="fieldset">
+                    <label><?php echo t('enter_password'); ?></label>
+                    <input class="full-width has-padding has-border" id="password" name="password" type="password" placeholder="<?php echo t('enter_password'); ?>">
+                    <a href="#0" class="hide-password">Show</a>
+                  </p>
+                 
+                  <p class="form-group">
+                    <button id="regsubmit" class="full-width has-padding btn-success" type="submit"><?php echo t('create_account'); ?></button>
+                  </p>
+                </form>
+              </div>
 
-					<p class="fieldset" style="padding-right: 30px;">
-						<label class="image-replace cd-password" for="empsignup-password">Password</label>
-                                                <input class="full-width has-padding has-border" id="password" name="password" type="password"  placeholder="<?php echo t('enter_password'); ?>">
-                                                <a href="#0" class="hide-password" style="color: grey; padding-right: 70px;">Show</a>
-						
-					</p>
-                                 
-                                        
-					<p class="form-group">
-                                            <button id="regsubmit" class="full-width has-padding btn-success"  style="padding:10px; background-color: #e9c46a;color:#1d3557;"><?php echo t('create_account'); ?></button>
-					</p>
-                                       
-				</form>
+              <div id="menu1" class="tab-pane fade">
+                <h3><?php echo t('register_as_jobseeker'); ?></h3>
+                <form class="cd-form" method="post" action="registerJobseeker.php" enctype="multipart/form-data">
+                  <p class="fieldset">
+                    <label><?php echo t('enter_username'); ?></label>
+                    <input class="full-width has-padding has-border" id="name" name="name" type="text" placeholder="<?php echo t('enter_username'); ?>">
+                  </p>
 
+                  <p class="fieldset">
+                    <label><?php echo t('enter_email'); ?></label>
+                    <input class="full-width has-padding has-border" id="email" name="email" type="email" placeholder="<?php echo t('enter_email'); ?>">
+                  </p>
+
+                  <p class="fieldset">
+                    <label><?php echo t('enter_password'); ?></label>
+                    <input class="full-width has-padding has-border" id="password" name="password" type="password" placeholder="<?php echo t('enter_password'); ?>">
+                    <a href="#0" class="hide-password">Show</a>
+                  </p>
+
+                  <p class="fieldset">
+                    <label><?php echo t('qualification'); ?></label>
+                    <input class="full-width has-padding has-border" id="qlf" name="qlf" type="text" placeholder="<?php echo t('qualification'); ?>">
+                  </p>
+
+                  <p class="fieldset">
+                    <label><?php echo t('date_of_birth'); ?></label>
+                    <input class="full-width has-padding has-border" id="dob" name="dob" type="date" placeholder="<?php echo t('date_of_birth'); ?>">
+                  </p>
+
+                  <p class="fieldset">
+                    <label><?php echo t('skills'); ?></label>
+                    <input class="full-width has-padding has-border" id="skills" name="skills" type="text" placeholder="<?php echo t('skills'); ?>">
+                  </p>
+                 
+                  <p class="form-group">
+                    <button id="regsubmit" class="full-width has-padding btn-success" type="submit">Create account</button>
+                  </p>
+                </form>
+              </div>
+            </div>
+          </div>
+      </div>
     </div>
-    <div id="menu1" class="tab-pane fade"  style="width: 50%;">
-  <h3 style="color: white; padding-left: 30px;"><?php echo t('register_as_jobseeker'); ?></h3>
-      <form class="cd-form" method="post" action="registerJobseeker.php" enctype="multipart/form-data">
-					<p class="fieldset" style="padding-right: 30px;">
-						<label class="image-replace cd-username" for="empsignup-username">Username</label>
-                                                <input class="full-width has-padding has-border" id="name" name="name" type="text" placeholder="<?php echo t('enter_username'); ?>">
-						
-					</p>
-
-					<p class="fieldset" style="padding-right: 30px;">
-						<label class="image-replace cd-email" for="empsignup-email">E-mail</label>
-                                                <input class="full-width has-padding has-border" id="email" name="email" type="email" placeholder="<?php echo t('enter_email'); ?>">
-						
-					</p>
-
-					<p class="fieldset" style="padding-right: 30px;">
-						<label class="image-replace cd-password" for="empsignup-password">Password</label>
-                                                <input class="full-width has-padding has-border" id="password" name="password" type="password"  placeholder="<?php echo t('enter_password'); ?>">
-                                                <a href="#0" class="hide-password" style="padding-right: 70px;">Show</a>
-					
-					</p>
-                                        <p class="fieldset" style="padding-right: 30px;">
-                                        	<label class="image-replace cd-username" for="empsignup-username"><?php echo t('qualification'); ?></label>
-                                        	<input class="full-width has-padding has-border" id="qlf" name="qlf" type="text" placeholder="<?php echo t('qualification'); ?>">
-                        	
-                                        </p>
-                                            <p class="fieldset" style="padding-right: 30px;">
-                        	<label class=" image-replace cd-username" for="empsignup-username"><?php echo t('date_of_birth'); ?></label>
-                        	<input class="full-width has-padding has-border" id="dob" name="dob" type="date" placeholder="<?php echo t('date_of_birth'); ?>">
-                        	
-                        </p>
-                                         <p class="fieldset" style="padding-right: 30px;">
-                        	<label class="image-replace cd-username" for="empsignup-username"><?php echo t('skills'); ?></label>
-                                                <input class="full-width has-padding has-border" id="skills" name="skills" type="text" placeholder="<?php echo t('skills'); ?>">
-                        	
-                        </p>
-                                        
-                                       
-					<p class="form-group">
-                                            <button id="regsubmit" class="full-width has-padding btn-success" style="padding:10px; background-color: #e9c46a;color:#1d3557;">Create account</button>
-					</p>
-                                       
-				</form>
-
-    </div>
-    
-    
   </div>
 </div>
-            
-	</div> <!-- cd-empsignup -->
-
-		
-     
-    </div>
-  </div>
-</div></div>
-
 
 <div><button id="regEmpSuccessSubmit" data-toggle="modal" data-target="#regEmpSuccess" style="display: none">Success Message</button></div>
 
@@ -232,7 +446,7 @@ require_once __DIR__ . '/lang.php';
       </div>
       <div class="modal-body" style="color:white;">
         <p>An OTP has been sent to:</p>
-        <p style="color: #e9c46a; font-weight: bold;" id="otpEmail"></p>
+        <p style="color: #ffffff; font-weight: bold;" id="otpEmail"></p>
         
         <p style="margin-top: 20px;">Enter the 6-digit OTP:</p>
         <input type="text" id="otpInput" class="form-control" maxlength="6" placeholder="000000" style="font-size: 24px; text-align: center; letter-spacing: 10px; font-weight: bold;">
@@ -241,20 +455,20 @@ require_once __DIR__ . '/lang.php';
         
         <div style="margin-top: 20px; text-align: center;">
           <p style="color: #999; font-size: 14px;">Time remaining:</p>
-          <p style="font-size: 24px; color: #e9c46a; font-weight: bold;">
+          <p style="font-size: 24px; color: #ffffff; font-weight: bold;">
             <span id="timerMinutes">2</span>:<span id="timerSeconds">00</span>
           </p>
         </div>
 
         <div style="margin-top: 20px; text-align: center;">
-          <button type="button" class="btn btn-primary" id="verifyOtpBtn" style="background-color: #e9c46a; color: #1d3557; border: none; width: 100%; padding: 10px;">
+          <button type="button" class="btn btn-primary" id="verifyOtpBtn" style="background-color: #ffffff; color: #1d3557; border: none; width: 100%; padding: 10px;">
             Verify OTP
           </button>
         </div>
 
         <div style="margin-top: 15px; text-align: center;">
           <p style="color: #999; font-size: 13px;">Didn't receive OTP?</p>
-          <button type="button" class="btn btn-link" id="resendOtpBtn" style="color: #e9c46a; text-decoration: none; padding: 0;">
+          <button type="button" class="btn btn-link" id="resendOtpBtn" style="color: #ffffff; text-decoration: none; padding: 0;">
             Resend OTP
           </button>
           <span id="resendMessage" style="display: none; color: #999; font-size: 13px; margin-left: 5px;"></span>

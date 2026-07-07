@@ -23,7 +23,8 @@ if ($isLocalhost) {
 }
 
 // SSLCommerz API Endpoints (Sandbox)
-define('SSLCOMMERZ_SESSION_API', 'https://sandbox.sslcommerz.com/gwprocess/v3/api.php');
+// Updated to v4 API as v3 is deprecated as of 2026
+define('SSLCOMMERZ_SESSION_API', 'https://sandbox.sslcommerz.com/gwprocess/v4/api.php');
 define('SSLCOMMERZ_VALIDATION_API', 'https://sandbox.sslcommerz.com/validator/api/validationserverAPI.php?wsdl');
 define('SSLCOMMERZ_MERCHANT_PANEL', 'https://sandbox.sslcommerz.com/manage/');
 

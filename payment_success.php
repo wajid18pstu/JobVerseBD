@@ -8,6 +8,14 @@
 include 'sslcommerz_config.php';
 include 'connect.php';
 
+// Log payment success callback
+$log_file = 'logs/payment_success.log';
+if (!is_dir('logs')) {
+    mkdir('logs', 0755, true);
+}
+file_put_contents($log_file, date('Y-m-d H:i:s') . " - Payment Success Callback Received\n", FILE_APPEND);
+file_put_contents($log_file, date('Y-m-d H:i:s') . " - POST Data: " . json_encode($_POST) . "\n", FILE_APPEND);
+
 // Get payment response from SSLCommerz
 $tran_id = isset($_POST['tran_id']) ? $_POST['tran_id'] : '';
 $bank_tran_id = isset($_POST['bank_tran_id']) ? $_POST['bank_tran_id'] : '';
@@ -91,11 +99,15 @@ $temp_storage_file = 'temp/job_data_' . $payment_id . '.json';
 $job_data = null;
 $post_id = 0;
 
+file_put_contents($log_file, date('Y-m-d H:i:s') . " - Looking for temp file: " . $temp_storage_file . "\n", FILE_APPEND);
+
 if (file_exists($temp_storage_file)) {
+    file_put_contents($log_file, date('Y-m-d H:i:s') . " - Temp file found, reading job data\n", FILE_APPEND);
     $job_data = json_decode(file_get_contents($temp_storage_file), true);
     
     // Insert job posting with 'pending' status (waiting for admin confirmation)
     if ($job_data) {
+        file_put_contents($log_file, date('Y-m-d H:i:s') . " - Job data decoded successfully\n", FILE_APPEND);
         $name = $conn->real_escape_string($job_data['name']);
         $category = $conn->real_escape_string($job_data['category']);
         $minexp = $conn->real_escape_string($job_data['minexp']);
@@ -109,8 +121,11 @@ if (file_exists($temp_storage_file)) {
         $insert_sql = "INSERT INTO `post` (`date`, `eid`, `name`, `category`, `minexp`, `desc`, `salary`, `industry`, `role`, `employmentType`, `status`, `payment_id`, `payment_status`) 
                       VALUES (CURRENT_DATE(), '$eid', '$name', '$category', '$minexp', '$desc', '$salary', '$industry', '$role', '$eType', '$jobStatus', '$payment_id', 'confirmed')";
         
+        file_put_contents($log_file, date('Y-m-d H:i:s') . " - Inserting Job SQL: " . $insert_sql . "\n", FILE_APPEND);
+        
         if ($conn->query($insert_sql) === TRUE) {
             $post_id = $conn->insert_id;
+            file_put_contents($log_file, date('Y-m-d H:i:s') . " - Job inserted successfully with ID: " . $post_id . "\n", FILE_APPEND);
             
             // Update job_payments with post id
             if ($job_payment_id) {
@@ -121,8 +136,14 @@ if (file_exists($temp_storage_file)) {
             
             // Delete temporary file
             unlink($temp_storage_file);
+        } else {
+            file_put_contents($log_file, date('Y-m-d H:i:s') . " - Job insertion FAILED: " . $conn->error . "\n", FILE_APPEND);
         }
+    } else {
+        file_put_contents($log_file, date('Y-m-d H:i:s') . " - Job data could not be decoded\n", FILE_APPEND);
     }
+} else {
+    file_put_contents($log_file, date('Y-m-d H:i:s') . " - Temp file NOT FOUND: " . $temp_storage_file . "\n", FILE_APPEND);
 }
 
 // Store payment details for reference

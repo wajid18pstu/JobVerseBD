@@ -180,7 +180,7 @@
                                                 echo "<div class='dropdown'>";
                                                 echo "<button class='btn btn-sm btn-info dropdown-toggle' type='button' data-toggle='dropdown' id='btn_" . $unique_id . "'>";
                                                 echo "📊 View Results<span class='caret'></span></button>";
-                                                echo "<ul class='dropdown-menu' aria-labelledby='btn_" . $unique_id . "' style='min-width: 280px;'>";
+                                                echo "<ul class='dropdown-menu' aria-labelledby='btn_" . $unique_id . "' style='min-width: 280px; max-height: 400px; overflow-y: auto;'>";
                                                 
                                                 // Display traditional exam scores
                                                 if (!empty($exam_scores)) {

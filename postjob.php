@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 
             <div class="container contact-form" style=" background-color: #e0e0e0ff; width: 700px;border-radius: 20px; height: 1100px; box-shadow: 0px 0px 25px #000000ff; 
                  align-items: center; justify-content: center; display: flex; padding: 0px; ">
-                <form method="post">
+                <form method="post" onsubmit="return validateJobForm()">
 
                     <div class="row">
 
@@ -490,5 +490,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                 return document.getElementById('whitCollarCategory').value;
             }
             return categorySelect;
+        }
+        
+        function validateJobForm() {
+            const categorySelect = document.getElementById('categorySelect').value;
+            
+            if (!categorySelect) {
+                alert('Please select a job type (White Collar or Blue Collar).');
+                return false;
+            }
+            
+            if (categorySelect === 'blue_collar') {
+                const blueCollarCategory = document.getElementById('blueCollarCategory').value;
+                if (!blueCollarCategory) {
+                    alert('Please select a Blue Collar job category.');
+                    return false;
+                }
+                if (blueCollarCategory === 'Other') {
+                    const customCategory = document.getElementById('customCategory').value.trim();
+                    if (!customCategory) {
+                        alert('Please enter a custom job category.');
+                        return false;
+                    }
+                }
+            } else if (categorySelect === 'white_collar') {
+                const whitCollarCategory = document.getElementById('whitCollarCategory').value;
+                if (!whitCollarCategory) {
+                    alert('Please select a White Collar job category.');
+                    return false;
+                }
+            }
+            
+            return true;
         }
     </script>

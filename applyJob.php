@@ -2,6 +2,14 @@
 
 if(isset($_GET['id'])){
     $pid = $_GET['id'];
+    $redirectPage = 'jobs.php';
+    if (isset($_GET['redirect'])) {
+        $requestedRedirect = basename($_GET['redirect']);
+        $allowedRedirects = array('jobs.php', 'eligibleJobs.php');
+        if (in_array($requestedRedirect, $allowedRedirects, true)) {
+            $redirectPage = $requestedRedirect;
+        }
+    }
     session_start();
     if(isset($_SESSION['sid'])){
         include 'connect.php';
@@ -11,7 +19,7 @@ if(isset($_GET['id'])){
         $result=$conn->query($sql);
         $count=$result->num_rows;
             if($count>0){
-                header('location: index.php?msg=dup');
+                header('location: ' . $redirectPage . '?msg=dup');
                 die();
             }
         
@@ -20,13 +28,13 @@ if(isset($_GET['id'])){
                 . "VALUES (NULL, CURRENT_DATE(), '$pid', '$sid', 'Applied');";
         if ($conn->query($sql) === TRUE) {
        
-                header('location: jobs.php?msg=success');
+                header('location: ' . $redirectPage . '?msg=success');
                 
             }else{
-                header('location: jobs.php?msg=failed');
+                header('location: ' . $redirectPage . '?msg=failed');
             }
     }else{
-        header('location:index.php?msg=login');
+        header('location:' . $redirectPage . '?msg=login');
     }
 }
 

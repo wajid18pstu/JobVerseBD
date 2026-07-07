@@ -67,8 +67,8 @@
                                 <div class="col-10 col-lg-8">
                                     <h1 class="display-3 text-white animated slideInDown mb-4"><?php echo t('find_best_startup'); ?></h1>
                                     <p class="fs-5 fw-medium text-white mb-4 pb-2"><?php echo t('looking_to_hire'); ?></p>
-                                    <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"><?php echo t('search_a_job'); ?></a>
-                                    <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight"><?php echo t('find_a_talent'); ?></a>
+                                    <a href="jobs.php" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"><?php echo t('search_a_job'); ?></a>
+                                    <a href="jobs.php" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight"><?php echo t('find_a_talent'); ?></a>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                     <?php
                     include 'connect.php';
                     // Get all unique categories and count jobs in each
-                    $sql = "SELECT category, COUNT(*) as count FROM post WHERE status='open' OR status='Open' GROUP BY category ORDER BY count DESC LIMIT 8";
+                    $sql = "SELECT category, COUNT(*) as count FROM post WHERE (status='open' OR status='Open') AND category IS NOT NULL AND category != '' GROUP BY category ORDER BY count DESC LIMIT 8";
                     $result = $conn->query($sql);
                     
                     $delay = 0.1;

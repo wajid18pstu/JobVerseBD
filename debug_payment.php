@@ -91,7 +91,7 @@ echo "</pre>";
 
 if (isset($response_data['status']) && $response_data['status'] === 'success') {
     echo "<h3 style='color: green;'>✅ SUCCESS! Gateway URL:</h3>";
-    echo "https://sandbox.sslcommerz.com/gwprocess/v3/gw.php?Q=sendtoken&val=" . $response_data['sessionkey'];
+    echo $response_data['GatewayPageURL'];
 } else {
     echo "<h3 style='color: red;'>❌ FAILED - Check response above for errors</h3>";
 }
